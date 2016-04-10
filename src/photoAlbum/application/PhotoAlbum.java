@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import photoAlbum.model.*;
-import photoAlbum.view.LoginController;
+import photoAlbum.view.Controller;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -74,7 +74,7 @@ public class PhotoAlbum extends Application {
             rootLayout.setCenter(login);
             
 
-            LoginController controller = loader.getController();
+            Controller controller = loader.getController();
             controller.setMainApp(this);
             
         } catch (IOException e) {

@@ -19,7 +19,7 @@ import javafx.scene.control.PasswordField;
 import photoAlbum.application.PhotoAlbum;
 import photoAlbum.model.User;
 
-public class LoginController {
+public class Controller {
 	
 	private PhotoAlbum photoAlbum;
 	
@@ -30,7 +30,7 @@ public class LoginController {
 	@FXML
 	private Label incorrect;
 	
-	public LoginController() {
+	public Controller() {
 		
 		
 		
@@ -43,7 +43,19 @@ public class LoginController {
 			if(!passwordField.getText().equals("AdMiN2016"))
 				incorrect.setVisible(true);
 			else{
-				
+				try{
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/photoAlbum/view/Admin.fxml"));
+		            Parent root1;
+					root1 = (Parent) fxmlLoader.load();
+		            PhotoAlbum.primaryStage.setTitle("Admin - User List");
+		            PhotoAlbum.primaryStage.setScene(new Scene(root1));
+		            
+		            
+		            
+					}
+		            catch (IOException e) {
+						e.printStackTrace();
+					}
 			}
 		}else{
 		
@@ -57,22 +69,17 @@ public class LoginController {
 			
 			if(temp.equals(users.get(index))){
 				try{
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/photoAlbum/view/Admin.fxml"));
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/photoAlbum/view/AlbumList.fxml"));
 	            Parent root1;
 				root1 = (Parent) fxmlLoader.load();
-	            Stage stage = new Stage();
-	            stage.initModality(Modality.APPLICATION_MODAL);
-	            stage.initStyle(StageStyle.UNDECORATED);
-	            stage.setTitle("Admin");
-	            stage.setScene(new Scene(root1));  
-	            stage.show();
+	            PhotoAlbum.primaryStage.setTitle(usernameField.getText()+" Photo Albums");
+	            PhotoAlbum.primaryStage.setScene(new Scene(root1));
 	            
-	            PhotoAlbum.primaryStage.close();
+	            
 				}
 	            catch (IOException e) {
 					e.printStackTrace();
 				}
-				
 				
 				loginSuccess = true;
 				
@@ -88,12 +95,12 @@ public class LoginController {
 	
 	@FXML
 	private void handleExit(){
-		
-		
-		
+	
 		System.exit(0);
 		
 	}
+	
+	
 
 	public void setMainApp(PhotoAlbum photoAlbum) {
 		this.photoAlbum = photoAlbum;
