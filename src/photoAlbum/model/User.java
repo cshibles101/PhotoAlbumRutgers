@@ -39,16 +39,24 @@ public class User implements Serializable{
 		this.username.set(name);
 	}
 	
+	private String getPassword(){
+		return password;
+	}
+	
 	public boolean equals(Object obj){
 		
 		if(obj instanceof User){
-			if(username.equals(((User) obj).username) && password.equals(((User) obj).password)){
+			if(this.getUsername().equals(((User) obj).getUsername()) && this.getPassword().equals(((User) obj).getPassword())){
 				return true;
 			}
 		}
 		
 		return false;
 		
+	}
+	
+	public String toString(){
+		return getUsername()+", "+getPassword();
 	}
 	
 }

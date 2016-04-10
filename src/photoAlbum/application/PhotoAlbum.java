@@ -5,9 +5,12 @@ package photoAlbum.application;
  */
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import photoAlbum.model.*;
@@ -19,10 +22,21 @@ import javafx.scene.layout.BorderPane;
 
 public class PhotoAlbum extends Application {
 	
-	private Stage primaryStage;
+	
+	public static Stage primaryStage;
     private BorderPane rootLayout;
+    static ObservableList<User> users = FXCollections.observableArrayList();
 
 
+    public PhotoAlbum(){
+    	
+		users.add(new User("Queen Latifah","QL"));
+		users.add(new User("Trump", "Jackass"));
+		users.add(new User("Sara Bareilles", "Brave Enough"));
+		
+    	
+    }
+    
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("PhotoAlbum");
@@ -73,27 +87,14 @@ public class PhotoAlbum extends Application {
     }
 	
 	public static void main(String[] args) throws IOException {
+		
 		launch(args);
 
 		
 	}
 	
-	
-	
-	
-	public boolean UserLogin(User temp, List<User> users){
-		
-		for(int x = 0; x < users.size(); x++){
-			
-			if(users.get(x).equals(temp)){
-				return true;
-			}
-		}
-		return false;
-		
+	public static List<User> getList(){
+		return users;
 	}
-	
-	
-	
 	
 }
