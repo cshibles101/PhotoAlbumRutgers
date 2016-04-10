@@ -16,11 +16,11 @@
       </Label>
       <TextField id="username" fx:id="usernameField" layoutX="111.0" layoutY="67.0" promptText="Username" />
       <PasswordField id="password" fx:id="passwordField" layoutX="111.0" layoutY="109.0" promptText="Password" />
-      <Button id="Login" defaultButton="true" layoutX="66.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="25.0" prefWidth="84.0" text="LOGIN" textAlignment="CENTER" textOverrun="CLIP">
+      <Button id="Login" fx:id="login" defaultButton="true" layoutX="66.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="25.0" prefWidth="84.0" text="LOGIN" textAlignment="CENTER" textOverrun="CLIP">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
-      <Button id="Exit" cancelButton="true" contentDisplay="CENTER" layoutX="173.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleExit" text="EXIT" AnchorPane.rightAnchor="88.0" />
+      <Button id="Exit" fx:id="exit" cancelButton="true" contentDisplay="CENTER" layoutX="173.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleExit" text="EXIT" AnchorPane.rightAnchor="88.0" />
       <Label layoutX="41.0" layoutY="71.0" text="Username:" />
       <Label layoutX="41.0" layoutY="113.0" text="Password:" />
       <Label fx:id="incorrect" layoutX="64.0" layoutY="134.0" text="Login Credentials Do NOT Match." textFill="#bc0b0b" visible="false" />

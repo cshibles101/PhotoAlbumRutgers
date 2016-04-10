@@ -23,7 +23,7 @@ import javafx.scene.layout.BorderPane;
 public class PhotoAlbum extends Application {
 	
 	
-	private Stage primaryStage;
+	public static Stage primaryStage;
     private BorderPane rootLayout;
     static ObservableList<User> users = FXCollections.observableArrayList();
     
