@@ -23,14 +23,14 @@ import javafx.scene.layout.BorderPane;
 public class PhotoAlbum extends Application {
 	
 	
-	public static Stage primaryStage;
+	private Stage primaryStage;
     private BorderPane rootLayout;
     static ObservableList<User> users = FXCollections.observableArrayList();
-
+    
 
     public PhotoAlbum(){
     	
-		users.add(new User("Queen Latifah","QL"));
+    	users.add(new User("Queen Latifah","QL"));
 		users.add(new User("Trump", "Jackass"));
 		users.add(new User("Sara Bareilles", "Brave Enough"));
 		
@@ -39,7 +39,7 @@ public class PhotoAlbum extends Application {
     
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("PhotoAlbum");
+        this.primaryStage.setTitle("Photo Album Login");
 
         initRootLayout();
 
@@ -93,8 +93,12 @@ public class PhotoAlbum extends Application {
 		
 	}
 	
-	public static List<User> getList(){
+	public ObservableList<User> getList(){
 		return users;
+	}
+	
+	public Stage getStage(){
+		return primaryStage;
 	}
 	
 }

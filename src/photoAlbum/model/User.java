@@ -10,13 +10,14 @@ import java.util.List;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class User implements Serializable{
 	
 	private final StringProperty username;
 	private final String password;
-	List<Album> albums = new ArrayList<Album>();
-
+	ObservableList<Album> albums = FXCollections.observableArrayList();
 	
 	public User(String username){
 		
@@ -43,6 +44,10 @@ public class User implements Serializable{
 		return password;
 	}
 	
+	public ObservableList<Album> getAlbums(){
+		return albums;
+	}
+	
 	public boolean equals(Object obj){
 		
 		if(obj instanceof User){
@@ -56,7 +61,7 @@ public class User implements Serializable{
 	}
 	
 	public String toString(){
-		return getUsername()+", "+getPassword();
+		return getUsername();
 	}
 	
 }
