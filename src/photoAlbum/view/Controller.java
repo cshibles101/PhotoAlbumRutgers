@@ -29,7 +29,7 @@ import photoAlbum.model.User;
 
 public class Controller {
 	
-	private PhotoAlbum photoAlbum;
+	static PhotoAlbum photoAlbum;
 	
 	@FXML
 	private TextField usernameField;
@@ -44,9 +44,9 @@ public class Controller {
 	@FXML
 	private MenuBar menuBar;
 	@FXML
-	private ListView<User> userList = new ListView<User>();
+	static ListView<User> userList = new ListView<User>();
 	@FXML
-	private ListView<Album> userAlbums = new ListView<Album>();
+	static ListView<Album> userAlbums = new ListView<Album>();
 	
 	public Controller() {
 		
@@ -155,20 +155,19 @@ public class Controller {
 		}
 	}
 	@FXML
-	private void handleDeleteAlbum(){
-		int selectedIndex = userAlbums.getSelectionModel().getSelectedIndex();
+	private void handleDeleteUser(){
+		int selectedIndex = userList.getSelectionModel().getSelectedIndex();
 		
 		if(selectedIndex > -1){
-			userAlbums.getItems().remove(selectedIndex);
+			userList.getItems().remove(selectedIndex);
 		}
 		
 	}
 	
 
 	public void setMainApp(PhotoAlbum photoAlbum) {
-		this.photoAlbum = photoAlbum;
-		userList.setItems(photoAlbum.getList());
-		
+		Controller.photoAlbum = photoAlbum;
+		Controller.userList.setItems(photoAlbum.getList());
 	}
 	
 
