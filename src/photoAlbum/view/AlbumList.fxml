@@ -2,29 +2,30 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="375.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photoAlbum.view.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="375.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photoAlbum.view.UserController">
    <children>
       <MenuBar fx:id="menuBar" layoutY="2.0" prefWidth="375.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu fx:id="menuFile" mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleLogout" text="Logout" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+              <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#handleLogout" text="Logout" />
+                  <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#handleExit" text="Exit" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu fx:id="menuEdit" mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="New Album" />
-                  <MenuItem mnemonicParsing="false" text="Rename Album" />
-                  <MenuItem mnemonicParsing="false" text="Delete Album" />
+              <MenuItem fx:id="newAlbum" mnemonicParsing="false" onAction="#handleNewAlbum" text="New Album" />
+                  <MenuItem fx:id="rename" mnemonicParsing="false" onAction="#handleRename" text="Rename Album" />
+                  <MenuItem fx:id="delete" mnemonicParsing="false" onAction="#handleDelete" text="Delete Album" />
             </items>
           </Menu>
         </menus>
@@ -33,7 +34,11 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
                <children>
-                  <ListView layoutX="-10.0" layoutY="70.0" prefHeight="363.0" prefWidth="179.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TableView fx:id="albumTable" layoutX="-35.0" layoutY="29.0" prefHeight="363.0" prefWidth="179.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="albumColumn" prefWidth="178.0" resizable="false" text="Albums" />
+                    </columns>
+                  </TableView>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -43,11 +48,31 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Button layoutX="64.0" layoutY="324.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" text="Open" />
-                  <Label layoutX="54.0" layoutY="70.0" text="Album Name" />
-                  <Label layoutX="58.0" layoutY="110.0" text="# of Photos" />
-                  <Label layoutX="40.0" layoutY="150.0" text="Oldest Photo Date" />
-                  <Label layoutX="38.0" layoutY="190.0" text="Newest Photo Date" />
+                  <Button fx:id="open" layoutX="64.0" layoutY="324.0" mnemonicParsing="false" onAction="#handleOpen" prefHeight="25.0" prefWidth="52.0" text="Open" />
+                  <Label fx:id="albumName" layoutX="55.0" layoutY="89.0" minWidth="70.0" text="Album Name" />
+                  <Label fx:id="photoCount" layoutX="58.0" layoutY="147.0" minWidth="62.0" text="# of Photos" />
+                  <Label fx:id="oldDate" layoutX="40.0" layoutY="199.0" minWidth="98.0" text="Oldest Photo Date" />
+                  <Label fx:id="newDate" layoutX="39.0" layoutY="251.0" minWidth="103.0" text="Newest Photo Date" />
+                  <Label layoutX="50.0" layoutY="63.0" text="Album Name:">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="56.0" layoutY="117.0" text="# of Photos:">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="36.0" layoutY="173.0" text="Oldest Photo Date:">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="34.0" layoutY="227.0" text="Newest Photo Date:">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
         </items>

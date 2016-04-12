@@ -1,36 +1,102 @@
 package photoAlbum.model;
-/**
- * @author Christopher Shibles
- * @author Randy Mester
- */
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Album implements Serializable{
+	
+	private static final long serialVersionUID = -5223084188453703541L;
 
-	private final StringProperty name;
-	private final IntegerProperty photoCount;
-	private final ObjectProperty<LocalDate> oldest;
-	private final ObjectProperty<LocalDate> newest;
-	List<ObjectProperty<Photo>> photos = new ArrayList<ObjectProperty<Photo>>(); 
+	private transient final StringProperty albumNameProp;
+	private transient final IntegerProperty photoCountProp;
+	
+	
+	
+	private String albumName;
+	private int photoCount;
+	private String oldestPhoto;
+	private String newestPhoto;
+	private List<Photo> photos = new ArrayList<Photo>();
+	private ObservableList<Photo> photoData = FXCollections.observableArrayList();
+	
 	
 	public Album(String name){
 		
-		this.name = new SimpleStringProperty(name);
-		this.photoCount = new SimpleIntegerProperty(0);
-		this.oldest = new SimpleObjectProperty<LocalDate>(null);
-		this.newest = new SimpleObjectProperty<LocalDate>(null);
+		this.albumName = name;
+		photoCount = 0;
+		albumNameProp = new SimpleStringProperty(name);
+		photoCountProp = new SimpleIntegerProperty(photoCount);
+		oldestPhoto = "";
+		newestPhoto = "";
 		
 	}
 	
+	
+	
+	public StringProperty albumNameProperty(){
+		return albumNameProp;
+	}
+	
+	public IntegerProperty photoCountProperty(){
+		return photoCountProp;
+	}
+	
+	public String getName(){
+		return albumName;
+	}
+	
+	public int getPhotoCount(){
+		return photoCount;
+	}
+	
+	public String getOld(){
+		return oldestPhoto;
+	}
+	
+	public String getNew(){
+		return newestPhoto;
+	}
+	
+	public void setPhotoCount(int count){
+		photoCount = count;
+		photoCountProp.set(count);
+	}
+	
+	public void setName(String name){
+		albumName = name;
+		albumNameProp.set(name);
+	}
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Album){
+			return this.getName().equals(((Album)o).getName());
+		}
+		return false;
+	}
+	
+	public List<Photo> getPhotos(){
+		return photos;
+	}
+	
+	public ObservableList<Photo> getObservableList(){
+		return photoData;
+	}
+	
+	public String toString(){
+		return albumName;
+	}
+	
+	public void addPhoto(Photo photo){
+		photos.add(photo);
+		photoData.add(photo);
+	}
+
 }

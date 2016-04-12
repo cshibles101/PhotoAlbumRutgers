@@ -6,16 +6,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photoAlbum.view.NewAlbumDialogController">
    <children>
-      <Button defaultButton="true" layoutX="80.0" layoutY="103.0" maxWidth="52.0" minWidth="52.0" mnemonicParsing="false" prefWidth="52.0" text="Add" />
-      <Button cancelButton="true" layoutX="168.0" layoutY="103.0" mnemonicParsing="false" text="Cancel" />
-      <TextField layoutX="106.0" layoutY="56.0" promptText="Enter Album Name" />
+      <TextField fx:id="albumName" layoutX="106.0" layoutY="56.0" promptText="Enter Album Name" />
+      <Button fx:id="newAlbumAdd" defaultButton="true" layoutX="80.0" layoutY="103.0" maxWidth="52.0" minWidth="52.0" mnemonicParsing="false" onAction="#handleNewAlbum" prefWidth="52.0" text="Add" />
+      <Button fx:id="newAlbumCancel" cancelButton="true" layoutX="168.0" layoutY="103.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
       <Label layoutX="24.0" layoutY="60.0" text="Album Name:" />
-      <Label layoutX="97.0" layoutY="6.0" text="Create New Album">
+      <Label layoutX="97.0" layoutY="14.0" text="Create New Album">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
+      <Label fx:id="albumExists" layoutX="54.0" layoutY="81.0" text="Album already exists with that name" textFill="#a40000" visible="false" />
+      <Label fx:id="blankAlbum" layoutX="72.0" layoutY="81.0" text="Album name cannot be blank" textFill="#a40000" visible="false" />
    </children>
 </AnchorPane>
