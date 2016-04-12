@@ -25,7 +25,7 @@ import photoAlbum.view.NewUserDialogController;
 
 public class PhotoAlbum extends Application{
 
-	private Stage mainStage;
+	static public Stage mainStage;
 	private BorderPane loginRoot, adminRoot, newUserRoot;
 	private AnchorPane loginAnchor, adminAnchor, newUserAnchor;
 	private Scene login, admin, newUser;

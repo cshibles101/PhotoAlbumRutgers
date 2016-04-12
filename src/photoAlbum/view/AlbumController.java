@@ -1,7 +1,13 @@
 package photoAlbum.view;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +22,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import photoAlbum.application.PhotoAlbum;
 import photoAlbum.model.Album;
 import photoAlbum.model.Photo;
@@ -128,6 +136,27 @@ public class AlbumController {
 		}
 		
 	}
+	
+	@FXML
+	public void handleAddPhoto(Event e){
+		Image image = null;
+		 FileChooser fileChooser = new FileChooser();
+		 fileChooser.setTitle("Open Resource File");
+		 fileChooser.getExtensionFilters().addAll(
+		         new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+		 File selectedFile = fileChooser.showOpenDialog(PhotoAlbum.mainStage);
+
+		 try {
+			 BufferedImage bufferedImage = ImageIO.read(selectedFile);
+			 image = SwingFXUtils.toFXImage(bufferedImage, null);
+			} catch (IOException ex) {
+			    ex.printStackTrace();
+			}
+		 
+		 Photo addedPhoto = new Photo(image);
+		 activeAlbum.addPhoto(addedPhoto);
+
+		 }
 	
 	public void displayImage(Photo photo){
 		
