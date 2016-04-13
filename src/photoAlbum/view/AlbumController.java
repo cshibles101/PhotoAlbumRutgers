@@ -21,16 +21,14 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import photoAlbum.application.PhotoAlbum;
 import photoAlbum.model.Album;
@@ -204,8 +202,12 @@ public class AlbumController {
 		 }
 	 }
 	
-	/*@FXML
+	@FXML
 	public void handleEditPhoto(Event e){
+		
+		Photo photo = thumbnails.getSelectionModel().getSelectedItem();
+		int index = thumbnails.getSelectionModel().getSelectedIndex();
+		
 		try{
 			FXMLLoader loader1 = new FXMLLoader();
 			loader1.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/RootLayout.fxml"));
@@ -220,8 +222,8 @@ public class AlbumController {
 			editPhotoRoot.setCenter(editPhotoAnchor);
 			
 			EditPhotoController editPhotoController;
-			EditPhotoController = loader2.getController();
-			EditPhotoController.setMainApp(photoAlbum, activeUser);
+			editPhotoController = loader2.getController();
+			editPhotoController.setMainApp(photo, activeAlbum, activeUser, photoAlbum, index);
 	        
 	        Stage dialog = new Stage();
 	        
@@ -232,7 +234,7 @@ public class AlbumController {
 		}catch(Exception exc){
 			exc.printStackTrace();
 		}
-	}*/
+	}
 	
 	@FXML
 	public void handleDeletePhoto(Event e){
