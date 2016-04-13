@@ -25,7 +25,7 @@ import photoAlbum.view.NewUserDialogController;
 
 public class PhotoAlbum extends Application{
 
-	static public Stage mainStage;
+	private Stage mainStage;
 	private BorderPane loginRoot, adminRoot, newUserRoot;
 	private AnchorPane loginAnchor, adminAnchor, newUserAnchor;
 	private Scene login, admin, newUser;
@@ -61,6 +61,7 @@ public class PhotoAlbum extends Application{
 	public void start(Stage mainStage) throws Exception {
 		this.mainStage = mainStage;
 		this.mainStage.setTitle("Photo Album Login");
+		this.mainStage.setResizable(false);
 		
 		initRootLayout();
 		

@@ -11,19 +11,26 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.util.Callback;
 import photoAlbum.application.PhotoAlbum;
 import photoAlbum.model.Album;
 import photoAlbum.model.Photo;
@@ -66,14 +73,14 @@ public class AlbumController {
 	@FXML
 	private Button last;
 	@FXML
-	private ImageView mainView;
+    private ListView<Photo> thumbnails;
 	@FXML
-    private TableView<Photo> imageTable;
-    @FXML
-    private TableColumn<Photo, Image>imageColumn;
-    @FXML
-    private TableColumn<Photo, String>captionColumn;
-    
+	private SplitPane splitPane;
+	@FXML
+	private VBox mainBox;
+	@FXML
+	private ImageView mainView;
+	
     private List<Photo> photoList;
 	
 	
@@ -86,11 +93,46 @@ public class AlbumController {
 	public void initialize(){
 		
 		//imageColumn.setCellValueFactory(cellData -> cellData.getValue().photoProp());
-		captionColumn.setCellValueFactory(cellData -> cellData.getValue().captionProperty());
+		thumbnails.setCellFactory(new Callback<ListView<Photo>, 
+	            ListCell<Photo>>() {
+	                @Override 
+	                public ListCell<Photo> call(ListView<Photo> list) {
+	                    return new newPhotoCell();
+	                }
+	            }
+	        );
 		
-		imageTable.getSelectionModel().selectedItemProperty().addListener(
+		thumbnails.getSelectionModel().selectedItemProperty().addListener(
 	            (observable, oldValue, newValue) -> displayImage(newValue));
 	}
+	
+	static class newPhotoCell extends ListCell<Photo> {
+        //@Override
+        public void updateItem(Photo item, boolean empty) {
+            super.updateItem(item, empty);
+            VBox box = new VBox();
+            if (item != null) {
+            	double width = 0, height = 0;
+            	ImageView view = new ImageView(item.getImage());
+            	view.setPreserveRatio(true);
+            	double picW = item.getImage().getWidth(), picH = item.getImage().getHeight();
+            	double ratio = 0;
+            	if(picW > picH){
+            		width = 50;
+            	}
+            	else{
+            		height = 50;
+            	}
+            	
+           	 	view.setFitWidth(width);
+           	 	view.setFitHeight(height);
+           	 	
+            	box.getChildren().addAll(view, new Label(item.getCaption()));
+            	box.setAlignment(Pos.CENTER);
+            	setGraphic(box);
+            }
+        }
+    }
 	
 	@FXML
 	private void handleExit(Event e){
@@ -144,7 +186,7 @@ public class AlbumController {
 		 fileChooser.setTitle("Open Resource File");
 		 fileChooser.getExtensionFilters().addAll(
 		         new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-		 File selectedFile = fileChooser.showOpenDialog(PhotoAlbum.mainStage);
+		 File selectedFile = fileChooser.showOpenDialog(photoAlbum.getStage());
 
 		 try {
 			 BufferedImage bufferedImage = ImageIO.read(selectedFile);
@@ -160,6 +202,30 @@ public class AlbumController {
 	
 	public void displayImage(Photo photo){
 		
+		double width = photo.getImage().getWidth(), height = photo.getImage().getHeight();
+		if(width > 585 && height > 366){
+			if(height/width > 366/585){
+				mainView.setFitWidth(width*(width/height));
+				mainView.setFitHeight(366);
+			}
+			else{
+				mainView.setFitWidth(585);
+				mainView.setFitHeight(width*(height/width));
+			}
+		}
+		else if(width > 585){
+			mainView.setFitWidth(585);
+			mainView.setFitHeight(width*(height/width));
+		}
+		else if(height > 366){
+			mainView.setFitWidth(height*(height/width));
+			mainView.setFitHeight(366);
+		} 
+		else{
+			mainView.setFitWidth(width);
+			mainView.setFitHeight(height);
+		}
+		
 		mainView.setImage(photo.getImage());
 		
 	}
@@ -173,7 +239,14 @@ public class AlbumController {
 		activeUser = user;
 		
 		photoList = album.getPhotos();
-		imageTable.setItems(album.getObservableList());
+		thumbnails.setItems(album.getObservableList());
+		
+		mainView = new ImageView();
+		mainView.setPreserveRatio(true);
+		mainView.maxHeight(mainBox.getMaxHeight());
+		mainView.maxWidth(mainBox.getMaxWidth());
+		mainBox.getChildren().add(mainView);
+		mainBox.setAlignment(Pos.CENTER);
 		
 	}
 }
