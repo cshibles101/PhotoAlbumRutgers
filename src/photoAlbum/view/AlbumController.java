@@ -83,6 +83,12 @@ public class AlbumController {
 	private VBox mainBox;
 	@FXML
 	private ImageView mainView;
+	@FXML
+	private Label captionLabel;
+	@FXML
+	private Label dateLabel;
+	@FXML
+	private Label tagsLabel;
 	
     private List<Photo> photoList;
 	
@@ -258,7 +264,7 @@ public class AlbumController {
 	public void displayImage(Photo photo){
 		
 		double width = photo.getImage().getWidth(), height = photo.getImage().getHeight();
-		System.out.println(width+" "+height);
+		//System.out.println(width+" "+height);
 		if(width > 585 && height > 366){
 			if(height/width > 366/585){
 				mainView.setFitWidth(width*(366/height));
@@ -288,6 +294,8 @@ public class AlbumController {
 		}
 		
 		mainView.setImage(photo.getImage());
+		
+		captionLabel.setText(photo.getCaption());
 		
 	}
 	

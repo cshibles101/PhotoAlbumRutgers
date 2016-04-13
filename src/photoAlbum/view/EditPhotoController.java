@@ -40,11 +40,12 @@ public class EditPhotoController {
 	@FXML
 	Button cancelBtn;
 	
-	
+	@FXML
 	public void handleOk(Event e){
 		
 	}
 	
+	@FXML
 	public void handleCancel(Event e){
 		Stage stage = (Stage) cancelBtn.getScene().getWindow();
 		stage.close();

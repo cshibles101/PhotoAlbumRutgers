@@ -97,6 +97,7 @@ public class Album implements Serializable{
 	public void addPhoto(Photo photo){
 		photos.add(photo);
 		photoData.add(photo);
+		photoCount++;
 	}
 	
 	public void deletePhoto(int index){
