@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.imageio.ImageIO;
 
@@ -13,7 +14,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -130,16 +134,26 @@ public class AlbumController {
 	@FXML
 	private void handleExit(Event e){
 		
-		//System.out.println("handleExit");
-		System.exit(1);
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Exit");
+		alert.setHeaderText("Are you sure you want to exit?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			System.exit(1);
+		}
 		
 	}
 	@FXML
 	private void handleLogout(Event e){
 		
-		//System.out.println(photoAlbum);
-		photoAlbum.getStage().setScene(photoAlbum.getScene("login"));
-		photoAlbum.getStage().setTitle("Photo Album Login");
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Logout");
+		alert.setHeaderText("Are you sure you want to logout?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			photoAlbum.getStage().setScene(photoAlbum.getScene("login"));
+			photoAlbum.getStage().setTitle("Photo Album Login");
+		}
 		
 	}
 	@FXML
@@ -244,27 +258,33 @@ public class AlbumController {
 	public void displayImage(Photo photo){
 		
 		double width = photo.getImage().getWidth(), height = photo.getImage().getHeight();
+		System.out.println(width+" "+height);
 		if(width > 585 && height > 366){
 			if(height/width > 366/585){
-				mainView.setFitWidth(width*(width/height));
+				mainView.setFitWidth(width*(366/height));
 				mainView.setFitHeight(366);
+				//System.out.println("line 215 "+width*(366/height)+" "+366);
 			}
 			else{
 				mainView.setFitWidth(585);
-				mainView.setFitHeight(width*(height/width));
+				mainView.setFitHeight(height*(585/width));
+				//System.out.println("line 220 "+5855+" "+height*(585/width));
 			}
 		}
 		else if(width > 585){
 			mainView.setFitWidth(585);
-			mainView.setFitHeight(width*(height/width));
+			mainView.setFitHeight(height*(585/width));
+			//System.out.println("line 226 "+5855+" "+height*(585/width));
 		}
 		else if(height > 366){
-			mainView.setFitWidth(height*(height/width));
+			mainView.setFitWidth(width*(366/height));
 			mainView.setFitHeight(366);
+			//System.out.println("line 231 "+width*(366/height)+" "+336);
 		} 
 		else{
 			mainView.setFitWidth(width);
 			mainView.setFitHeight(height);
+			//System.out.println("line 236 "+width+" "+height);
 		}
 		
 		mainView.setImage(photo.getImage());

@@ -2,19 +2,23 @@ package photoAlbum.view;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.TextAlignment;
@@ -96,28 +100,31 @@ public class UserController {
 	        oldDate.setText("");
 	    }
 	}
-	
-	
-	
-	
-	
-	
-	
+
 	
 	@FXML
 	private void handleExit(Event e){
 		
-		//System.out.println("handleExit");
-		System.exit(1);
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Exit");
+		alert.setHeaderText("Are you sure you want to exit?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			System.exit(1);
+		}
 		
 	}
 	@FXML
 	private void handleLogout(Event e){
 		
-		//System.out.println(photoAlbum);
-		photoAlbum.getStage().setScene(photoAlbum.getScene("login"));
-		photoAlbum.getStage().setTitle("Photo Album Login");
-		
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Logout");
+		alert.setHeaderText("Are you sure you want to logout?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			photoAlbum.getStage().setScene(photoAlbum.getScene("login"));
+			photoAlbum.getStage().setTitle("Photo Album Login");
+		}
 		
 	}
 	@FXML
@@ -199,43 +206,65 @@ public class UserController {
 	public void handleRename(Event e){
 			
 		int selectedIndex = albumTable.getSelectionModel().getSelectedIndex();
+		if(selectedIndex > -1){
+			try{
+				FXMLLoader loader1 = new FXMLLoader();
+				loader1.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/RootLayout.fxml"));
+				BorderPane renameRoot = (BorderPane) loader1.load();
+				
+				Scene rename = new Scene(renameRoot);
+				
+				FXMLLoader loader2 = new FXMLLoader();
+				loader2.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/Rename.fxml"));
+				AnchorPane renameAnchor = (AnchorPane) loader2.load();
+				
 		
-		try{
-			FXMLLoader loader1 = new FXMLLoader();
-			loader1.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/RootLayout.fxml"));
-			BorderPane renameRoot = (BorderPane) loader1.load();
+				renameRoot.setCenter(renameAnchor);
+				
+		        RenameController renameController;
+		        renameController = loader2.getController();
+		        renameController.setAlbum(activeUser, albumTable.getItems().get(selectedIndex), photoAlbum);
+		        
+		        //System.out.println(albumTable.getItems().get(selectedIndex));
+		        
+		        Stage dialog = new Stage();
+	            
+	            dialog.setScene(rename);
+	            dialog.setTitle("Rename Album");
+	            dialog.showAndWait();
+	            
+	            albumTable.requestFocus();
+				albumTable.getSelectionModel().select(selectedIndex);
+				albumTable.getFocusModel().focus(selectedIndex);
+	            showAlbumDetails(albumTable.getItems().get(selectedIndex));
+		        
+				
+			} catch(Exception exc){
+				exc.printStackTrace();
+			}
+		} else if(activeUser.getAlbums().isEmpty()){
+			Alert alert = new Alert(AlertType.ERROR);
+            alert.initOwner(photoAlbum.getStage());
+            alert.setTitle("No Albums");
+            alert.setHeaderText("There are no albums to open");
+            alert.setContentText("Please add a new album to open.");
+
+            alert.showAndWait();
+		}
+		else{
+			Alert alert = new Alert(AlertType.ERROR);
+            alert.initOwner(photoAlbum.getStage());
+            alert.setTitle("No Album Selected");
+            alert.setHeaderText("You do not have an album selected");
+            alert.setContentText("Please select an album to rename.");
+
+            alert.showAndWait();
+		}
 			
-			Scene rename = new Scene(renameRoot);
 			
-			FXMLLoader loader2 = new FXMLLoader();
-			loader2.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/Rename.fxml"));
-			AnchorPane renameAnchor = (AnchorPane) loader2.load();
+	}
 			
 	
-			renameRoot.setCenter(renameAnchor);
-			
-	        RenameController renameController;
-	        renameController = loader2.getController();
-	        renameController.setAlbum(activeUser, albumTable.getItems().get(selectedIndex), photoAlbum);
-	        
-	        //System.out.println(albumTable.getItems().get(selectedIndex));
-	        
-	        Stage dialog = new Stage();
-            
-            dialog.setScene(rename);
-            dialog.setTitle("Rename Album");
-            dialog.showAndWait();
-            
-            albumTable.requestFocus();
-			albumTable.getSelectionModel().select(selectedIndex);
-			albumTable.getFocusModel().focus(selectedIndex);
-            showAlbumDetails(albumTable.getItems().get(selectedIndex));
-	        
-			
-		} catch(Exception exc){
-			exc.printStackTrace();
-		}
-	}
 	
 	@FXML
 	public void handleOpen(Event e){
@@ -252,35 +281,53 @@ public class UserController {
 				}
 			}
 			
-		}
 		
-		try{
-			FXMLLoader loader1 = new FXMLLoader();
-			loader1.setLocation(PhotoAlbum.class.getResource("/photoalbum/view/RootLayout.fxml"));
-			BorderPane albumRoot = (BorderPane) loader1.load();
+		
+			try{
+				FXMLLoader loader1 = new FXMLLoader();
+				loader1.setLocation(PhotoAlbum.class.getResource("/photoalbum/view/RootLayout.fxml"));
+				BorderPane albumRoot = (BorderPane) loader1.load();
+				
+				Scene album = new Scene(albumRoot);
+				
+				FXMLLoader loader2 = new FXMLLoader();
+				loader2.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/Album.fxml"));
+				AnchorPane albumAnchor = (AnchorPane) loader2.load();
+				
+	
+				albumRoot.setCenter(albumAnchor);
+				
+				//album
+		        AlbumController albumController;
+		        albumController = loader2.getController();
+		        albumController.setAlbum(activeUser, activeUser.getAlbums().get(listIndex), photoAlbum, selectedIndex);
+		        
+		        photoAlbum.getStage().setScene(album);
+				photoAlbum.getStage().setTitle("Album View: "+activeUser.getAlbums().get(listIndex).getName());
 			
-			Scene album = new Scene(albumRoot);
-			
-			FXMLLoader loader2 = new FXMLLoader();
-			loader2.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/Album.fxml"));
-			AnchorPane albumAnchor = (AnchorPane) loader2.load();
-			
+			}catch(Exception exc){
+				exc.printStackTrace();
+			}
+		
+		}
+		else if(list.isEmpty()){
+			Alert alert = new Alert(AlertType.ERROR);
+            alert.initOwner(photoAlbum.getStage());
+            alert.setTitle("No Albums");
+            alert.setHeaderText("There are no albums to open");
+            alert.setContentText("Please add a new album to open.");
 
-			albumRoot.setCenter(albumAnchor);
-			
-			//album
-	        AlbumController albumController;
-	        albumController = loader2.getController();
-	        albumController.setAlbum(activeUser, activeUser.getAlbums().get(listIndex), photoAlbum, selectedIndex);
-	        
-	        photoAlbum.getStage().setScene(album);
-			photoAlbum.getStage().setTitle("Album View: "+activeUser.getAlbums().get(listIndex).getName());
-		
-		}catch(Exception exc){
-			exc.printStackTrace();
+            alert.showAndWait();
 		}
-		
-		
+		else{
+			Alert alert = new Alert(AlertType.ERROR);
+            alert.initOwner(photoAlbum.getStage());
+            alert.setTitle("No Album Selected");
+            alert.setHeaderText("You do not have an album selected");
+            alert.setContentText("Please select an album to open.");
+
+            alert.showAndWait();
+		}
 		
 	}
 	
