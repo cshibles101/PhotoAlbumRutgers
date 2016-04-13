@@ -21,12 +21,11 @@ public class EditPhotoController {
 	private PhotoAlbum photoAlbum;
 	private int photoIndex;
 	
-	private String caption;
-	private ArrayList<String> tags;
+	private String[] tagSplit;
 	private Album destAlbum;
 	
 	@FXML
-	TextField captionfield;
+	TextField captionField;
 	
 	@FXML
 	TextField tagField;
@@ -42,6 +41,22 @@ public class EditPhotoController {
 	
 	@FXML
 	public void handleOk(Event e){
+		
+		photo.setCaption(captionField.getSelectedText());
+		
+		tagSplit = tagField.getSelectedText().split(",");
+		for(String s:tagSplit){
+			photo.addTag(s);
+		
+		System.out.println(photo.toString());
+		
+		
+		
+		Stage stage = (Stage) okBtn.getScene().getWindow();
+		stage.close();
+			
+		}
+		
 		
 	}
 	

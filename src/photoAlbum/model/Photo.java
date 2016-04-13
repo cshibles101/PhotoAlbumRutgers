@@ -59,6 +59,10 @@ public class Photo {
 		return tagsList;
 	}
 	
+	public void addTag(String tag){
+		tagsList.add(tag);
+	}
+	
 	public Image getImage(){
 		return image;
 	}

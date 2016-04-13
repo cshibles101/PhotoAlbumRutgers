@@ -74,7 +74,7 @@ public class NewAlbumDialogController {
 	@FXML
 	public void handleCancel(Event e){
 		
-		Stage stage = (Stage) newAlbumCancel.getScene().getWindow();;
+		Stage stage = (Stage) newAlbumCancel.getScene().getWindow();
 		albumName.requestFocus();
 		albumExists.setVisible(false);
 		blankAlbum.setVisible(false);
