@@ -92,14 +92,7 @@ public class AlbumController {
 	@FXML
 	public void initialize(){
 		
-		thumbnails.setCellFactory(new Callback<ListView<Photo>, 
-	            ListCell<Photo>>() {
-	                @Override 
-	                public ListCell<Photo> call(ListView<Photo> list) {
-	                    return new newPhotoCell();
-	                }
-	            }
-	        );
+		
 		
 		thumbnails.getSelectionModel().selectedItemProperty().addListener(
 	            (observable, oldValue, newValue) -> displayImage(newValue));
@@ -198,6 +191,15 @@ public class AlbumController {
 			 
 			 Photo addedPhoto = new Photo(image);
 			 activeAlbum.addPhoto(addedPhoto);
+			 
+			 thumbnails.setCellFactory(new Callback<ListView<Photo>, 
+			            ListCell<Photo>>() {
+			                @Override 
+			                public ListCell<Photo> call(ListView<Photo> list) {
+			                    return new newPhotoCell();
+			                }
+			            }
+			        );
 		 }
 
 		 }
@@ -255,6 +257,15 @@ public class AlbumController {
 			thumbnails.getSelectionModel().select(0);
 			thumbnails.getFocusModel().focus(0);
 		}
+		
+		thumbnails.setCellFactory(new Callback<ListView<Photo>, 
+	            ListCell<Photo>>() {
+	                @Override 
+	                public ListCell<Photo> call(ListView<Photo> list) {
+	                    return new newPhotoCell();
+	                }
+	            }
+	        );
 		
 	}
 }
