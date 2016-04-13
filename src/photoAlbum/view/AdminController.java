@@ -2,13 +2,17 @@ package photoAlbum.view;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -60,17 +64,26 @@ public class AdminController {
 	@FXML
 	private void handleExit(Event e){
 		
-		//System.out.println("handleExit");
-		System.exit(1);
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Exit");
+		alert.setHeaderText("Are you sure you want to exit?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			System.exit(1);
+		}
 		
 	}
 	@FXML
 	private void handleLogout(Event e){
 		
-		//System.out.println(photoAlbum);
-		photoAlbum.getStage().setScene(photoAlbum.getScene("login"));
-		photoAlbum.getStage().setTitle("Photo Album Login");
-		
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Logout");
+		alert.setHeaderText("Are you sure you want to logout?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			photoAlbum.getStage().setScene(photoAlbum.getScene("login"));
+			photoAlbum.getStage().setTitle("Photo Album Login");
+		}
 		
 	}
 	
@@ -90,7 +103,7 @@ public class AdminController {
 			
 			userTable.getItems().remove(selectedIndex);
 			
-		}
+		
 		
 		photoAlbum.updateUsers(userList);
 		if(userList.size() > 0){
@@ -104,6 +117,22 @@ public class AdminController {
 				userTable.getSelectionModel().select(selectedIndex-1);
 				userTable.getFocusModel().focus(selectedIndex-1);
 			}
+		}
+		} else if(userList.isEmpty()){
+			Alert alert = new Alert(AlertType.ERROR);
+            alert.initOwner(photoAlbum.getStage());
+            alert.setTitle("No Users");
+            alert.setHeaderText("There are no users to delete");
+
+            alert.showAndWait();
+		} else{
+			Alert alert = new Alert(AlertType.ERROR);
+            alert.initOwner(photoAlbum.getStage());
+            alert.setTitle("No User Selected");
+            alert.setHeaderText("No user selected");
+            alert.setContentText("Please select a user you wish to delete.");
+
+            alert.showAndWait();
 		}
 	}
 	
