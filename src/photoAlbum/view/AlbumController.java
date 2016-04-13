@@ -29,6 +29,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import photoAlbum.application.PhotoAlbum;
@@ -201,8 +202,42 @@ public class AlbumController {
 			            }
 			        );
 		 }
-
-		 }
+	 }
+	
+	/*@FXML
+	public void handleEditPhoto(Event e){
+		try{
+			FXMLLoader loader1 = new FXMLLoader();
+			loader1.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/RootLayout.fxml"));
+			BorderPane editPhotoRoot = (BorderPane) loader1.load();
+			
+			Scene editPhoto = new Scene(editPhotoRoot);
+			
+			FXMLLoader loader2 = new FXMLLoader();
+			loader2.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/EditPhoto.fxml"));
+			AnchorPane editPhotoAnchor = (AnchorPane) loader2.load();
+			
+			editPhotoRoot.setCenter(editPhotoAnchor);
+			
+			EditPhotoController editPhotoController;
+			EditPhotoController = loader2.getController();
+			EditPhotoController.setMainApp(photoAlbum, activeUser);
+	        
+	        Stage dialog = new Stage();
+	        
+	        dialog.setScene(editPhoto);
+            dialog.setTitle("Edit Photo");
+            dialog.showAndWait();
+        
+		}catch(Exception exc){
+			exc.printStackTrace();
+		}
+	}*/
+	
+	@FXML
+	public void handleDeletePhoto(Event e){
+		
+	}
 	
 	public void displayImage(Photo photo){
 		

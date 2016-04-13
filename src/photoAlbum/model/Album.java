@@ -99,6 +99,10 @@ public class Album implements Serializable{
 		photoData.add(photo);
 	}
 	
+	public void deletePhoto(int index){
+		
+	}
+	
 	public void updateAlbum(List<Photo> photos){
 		this.photos = photos;
 		photoData.clear();
