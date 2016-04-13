@@ -92,7 +92,6 @@ public class AlbumController {
 	@FXML
 	public void initialize(){
 		
-		//imageColumn.setCellValueFactory(cellData -> cellData.getValue().photoProp());
 		thumbnails.setCellFactory(new Callback<ListView<Photo>, 
 	            ListCell<Photo>>() {
 	                @Override 
@@ -107,7 +106,7 @@ public class AlbumController {
 	}
 	
 	static class newPhotoCell extends ListCell<Photo> {
-        //@Override
+        @Override
         public void updateItem(Photo item, boolean empty) {
             super.updateItem(item, empty);
             VBox box = new VBox();
@@ -127,7 +126,9 @@ public class AlbumController {
            	 	view.setFitWidth(width);
            	 	view.setFitHeight(height);
            	 	
-            	box.getChildren().addAll(view, new Label(item.getCaption()));
+           	 	Label label = new Label(item.getCaption());
+           	 	
+            	box.getChildren().addAll(view, label);
             	box.setAlignment(Pos.CENTER);
             	setGraphic(box);
             }
@@ -187,16 +188,17 @@ public class AlbumController {
 		 fileChooser.getExtensionFilters().addAll(
 		         new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
 		 File selectedFile = fileChooser.showOpenDialog(photoAlbum.getStage());
-
-		 try {
-			 BufferedImage bufferedImage = ImageIO.read(selectedFile);
-			 image = SwingFXUtils.toFXImage(bufferedImage, null);
-			} catch (IOException ex) {
-			    ex.printStackTrace();
-			}
-		 
-		 Photo addedPhoto = new Photo(image);
-		 activeAlbum.addPhoto(addedPhoto);
+		 if(selectedFile != null){
+			 try {
+				 BufferedImage bufferedImage = ImageIO.read(selectedFile);
+				 image = SwingFXUtils.toFXImage(bufferedImage, null);
+				} catch (IOException ex) {
+				    
+				}
+			 
+			 Photo addedPhoto = new Photo(image);
+			 activeAlbum.addPhoto(addedPhoto);
+		 }
 
 		 }
 	
@@ -247,6 +249,12 @@ public class AlbumController {
 		mainView.maxWidth(mainBox.getMaxWidth());
 		mainBox.getChildren().add(mainView);
 		mainBox.setAlignment(Pos.CENTER);
+		
+		if(!album.getObservableList().isEmpty()){
+			thumbnails.requestFocus();
+			thumbnails.getSelectionModel().select(0);
+			thumbnails.getFocusModel().focus(0);
+		}
 		
 	}
 }

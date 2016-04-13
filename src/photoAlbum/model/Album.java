@@ -98,5 +98,13 @@ public class Album implements Serializable{
 		photos.add(photo);
 		photoData.add(photo);
 	}
+	
+	public void updateAlbum(List<Photo> photos){
+		this.photos = photos;
+		photoData.clear();
+		for (Photo i : this.photos) 
+			 photoData.add(i);
+		
+	}
 
 }
