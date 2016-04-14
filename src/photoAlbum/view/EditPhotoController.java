@@ -37,7 +37,7 @@ public class EditPhotoController {
 	@FXML
 	Button cancelBtn;
 	
-	
+	@FXML
 	public void handleOk(Event e){
 		
 		photo.setCaption(captionField.getText());
@@ -55,6 +55,7 @@ public class EditPhotoController {
 		
 	}
 	
+	@FXML
 	public void handleCancel(Event e){
 		Stage stage = (Stage) cancelBtn.getScene().getWindow();
 		stage.close();
