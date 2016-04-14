@@ -338,6 +338,7 @@ public class AlbumController {
 				thumbnails.getFocusModel().focus(index);
 			}
 			thumbnails.refresh();
+			}
 			
 		}
 		activeAlbum.updateAlbum(activeAlbum.getPhotos());

@@ -26,7 +26,7 @@
                <items>
                   <MenuItem fx:id="editPhoto" mnemonicParsing="false" onAction="#handleEditPhoto" text="Edit Photo" />
                 <MenuItem fx:id="addPhoto" mnemonicParsing="false" onAction="#handleAddPhoto" text="Add Photo" />
-                  <MenuItem mnemonicParsing="false" text="Remove Photo" />
+                  <MenuItem fx:id="removePhoto" mnemonicParsing="false" onAction="#handleDeletePhoto" text="Remove Photo" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Search">
