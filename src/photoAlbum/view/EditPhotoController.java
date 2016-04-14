@@ -88,7 +88,7 @@ public class EditPhotoController {
 		Stage stage = (Stage) okBtn.getScene().getWindow();
 		stage.close();
 
-			
+		}
 		}
 	}
 	
@@ -113,7 +113,6 @@ public class EditPhotoController {
 		
 		captionField.setText(photo.getCaption());
 		tagField.setText(photo.getTagsString());
-		
 		
 	}
 	
