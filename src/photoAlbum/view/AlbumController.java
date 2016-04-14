@@ -315,7 +315,7 @@ public class AlbumController {
 			
 			if(thumbnails.getSelectionModel().getSelectedItem()==null){
 				mainView.setImage(null);
-			};
+			}
 			
 		}
 		
@@ -324,6 +324,55 @@ public class AlbumController {
 	
 	@FXML
 	public void handleDeletePhoto(Event e){
+		
+		int selectedIndex = thumbnails.getSelectionModel().getSelectedIndex();
+		
+		if(selectedIndex > -1){
+			for(int x = 0; x < activeAlbum.getPhotos().size(); x++){
+				if(activeAlbum.getPhotos().get(x).equals(thumbnails.getItems().get(selectedIndex))){
+					activeAlbum.deletePhoto(x);
+					
+					break;
+				}
+			}
+			
+			thumbnails.getItems().remove(selectedIndex);
+			
+		
+		
+
+		if(activeAlbum.getPhotos().size() > 0){
+			if(selectedIndex < activeAlbum.getPhotos().size()){
+				thumbnails.requestFocus();
+				thumbnails.getSelectionModel().select(selectedIndex);
+				thumbnails.getFocusModel().focus(selectedIndex);
+			}
+			else{
+				thumbnails.requestFocus();
+				thumbnails.getSelectionModel().select(selectedIndex-1);
+				thumbnails.getFocusModel().focus(selectedIndex-1);
+			}
+		}
+		} else if(activeAlbum.getPhotos().isEmpty()){
+			Alert alert = new Alert(AlertType.ERROR);
+            alert.initOwner(photoAlbum.getStage());
+            alert.setTitle("No Photos");
+            alert.setHeaderText("There are no photos to delete");
+
+            alert.showAndWait();
+		} else{
+			Alert alert = new Alert(AlertType.ERROR);
+            alert.initOwner(photoAlbum.getStage());
+            alert.setTitle("No Photo Selected");
+            alert.setHeaderText("No photo selected");
+            alert.setContentText("Please select a photo you wish to delete.");
+
+            alert.showAndWait();
+		}
+		
+		if(thumbnails.getSelectionModel().getSelectedItem()==null){
+			mainView.setImage(null);
+		}
 		
 	}
 	
