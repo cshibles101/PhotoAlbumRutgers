@@ -6,6 +6,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import photoAlbum.application.PhotoAlbum;
@@ -25,24 +26,24 @@ public class EditPhotoController {
 	private Album destAlbum;
 	
 	@FXML
-	TextField captionField;
+	private TextArea captionField;
 	
 	@FXML
-	TextField tagField;
+	private TextArea tagField;
 	
 	@FXML
-	ChoiceBox<Album> albumChoice;
+	private ChoiceBox<Album> albumChoice;
 	
 	@FXML
-	Button okBtn;
+	private Button okBtn;
 	
 	@FXML
-	Button cancelBtn;
+	private Button cancelBtn;
 	
 	@FXML
 	public void handleOk(Event e){
 		
-		photo.setCaption(captionField.getSelectedText());
+		photo.setCaption(captionField.getText());
 		
 		tagSplit = tagField.getSelectedText().split(",");
 		for(String s:tagSplit){

@@ -250,6 +250,8 @@ public class AlbumController {
 	        dialog.setScene(editPhoto);
             dialog.setTitle("Edit Photo");
             dialog.showAndWait();
+            
+            captionLabel.setText(photo.getCaption());
         
 		}catch(Exception exc){
 			exc.printStackTrace();
