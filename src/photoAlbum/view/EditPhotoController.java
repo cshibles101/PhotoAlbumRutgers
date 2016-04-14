@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import photoAlbum.application.PhotoAlbum;
@@ -19,6 +20,8 @@ public class EditPhotoController {
 	private User activeUser;
 	private PhotoAlbum photoAlbum;
 	private int photoIndex;
+	
+	
 	
 	private String[] tagSplit;
 	private Album destAlbum;
@@ -40,6 +43,7 @@ public class EditPhotoController {
 	
 	@FXML
 	private Label limits;
+	
 	
 	
 	@FXML
@@ -70,12 +74,6 @@ public class EditPhotoController {
 				}
 			}
 			photo.setCaption(captionField.getText());
-			
-			tagSplit = tagField.getText().split(",");
-			for(String s:tagSplit){
-	
-				if(!s.isEmpty())
-				photo.addTag(s.trim());
 				
 			destAlbum = albumChoice.getSelectionModel().getSelectedItem();	
 				
@@ -84,11 +82,13 @@ public class EditPhotoController {
 			else {
 				destAlbum.addPhoto(photo);
 				activeAlbum.deletePhoto(photoIndex);
+				
+				
 			}
 			Stage stage = (Stage) okBtn.getScene().getWindow();
 			stage.close();
 	
-			}
+			
 		}
 
 			
@@ -108,8 +108,10 @@ public class EditPhotoController {
 		this.activeUser = activeUser;
 		this.photoAlbum = photoAlbum;
 		this.photoIndex = photoIndex;
-
 		albumChoice.setItems(activeUser.getObservableList());
+		
+		captionField.setText(photo.getCaption());
+		tagField.setText(photo.getTagsString());
 
 
 	}
