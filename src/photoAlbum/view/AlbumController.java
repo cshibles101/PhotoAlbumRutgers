@@ -267,6 +267,16 @@ public class AlbumController {
 		        dialog.setScene(editPhoto);
 	            dialog.setTitle("Add Photo Details");
 	            dialog.showAndWait();
+	            
+	            thumbnails.setCellFactory(new Callback<ListView<Photo>, 
+			            ListCell<Photo>>() {
+			                @Override 
+			                public ListCell<Photo> call(ListView<Photo> list) {
+			                    return new newPhotoCell();
+			                }
+			            }
+			        );
+	            
 	            if(addedPhoto.getTagsString() != null)
 	            	tagsLabel.setText("Tags: "+addedPhoto.getTagsString());
 	            captionLabel.setText(addedPhoto.getCaption());

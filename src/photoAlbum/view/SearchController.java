@@ -240,7 +240,13 @@ public class SearchController {
 			}
 			
 		}
-		
+		if(thumbnails.getSelectionModel().getSelectedItem()==null){
+			mainView.setImage(null);
+			captionLabel.setText("Caption");
+			dateLabel.setText("Date");
+			tagsLabel.setText("Tags");
+			albumLabel.setText("Album");
+		}
 		
 		
 	}

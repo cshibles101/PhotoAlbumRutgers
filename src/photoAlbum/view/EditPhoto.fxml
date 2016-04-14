@@ -10,7 +10,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photoAlbum.view.EditPhotoController">
    <children>
       <TextArea fx:id="captionField" layoutX="109.0" layoutY="43.0" prefHeight="58.0" prefWidth="170.0" promptText="Enter Caption (up to 50 characters)" wrapText="true" />
-      <TextArea fx:id="tagField" layoutX="109.0" layoutY="114.0" prefHeight="58.0" prefWidth="170.0" promptText="Enter Tags, separated by commas (up to 5)" wrapText="true" />
+      <TextArea fx:id="tagField" layoutX="109.0" layoutY="114.0" prefHeight="58.0" prefWidth="170.0" promptText="Enter Tags, separated by commas with no spaces (up to 5)" wrapText="true" />
       <ChoiceBox fx:id="albumChoice" layoutX="109.0" layoutY="197.0" prefWidth="150.0" />
       <Button fx:id="okBtn" defaultButton="true" layoutX="80.0" layoutY="261.0" maxWidth="52.0" minWidth="52.0" mnemonicParsing="false" onAction="#handleOk" prefWidth="52.0" text="Ok" />
       <Button fx:id="cancelBtn" cancelButton="true" layoutX="168.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
