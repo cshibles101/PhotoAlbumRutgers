@@ -20,6 +20,7 @@ public class SearchController {
 	private User activeUser;
 	private PhotoAlbum photoAlbum;
 	
+
 	@FXML
 	TextField tagTxt;
 	@FXML

@@ -243,6 +243,8 @@ public class AlbumController {
 			thumbnails.getSelectionModel().selectLast();
 			thumbnails.getFocusModel().focus(photoList.size()-1);
 			
+			int index = thumbnails.getSelectionModel().getSelectedIndex();
+			
 			try{
 				FXMLLoader loader1 = new FXMLLoader();
 				loader1.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/RootLayout.fxml"));
@@ -317,6 +319,10 @@ public class AlbumController {
 		        dialog.setScene(editPhoto);
 	            dialog.setTitle("Edit Photo");
 	            dialog.showAndWait();
+	            
+	            
+				thumbnails.refresh();
+				
 	            if(photo.getTagsString() != null)
 	            	tagsLabel.setText("Tags: "+photo.getTagsString());
 	            captionLabel.setText(photo.getCaption());
@@ -325,14 +331,34 @@ public class AlbumController {
 				exc.printStackTrace();
 			}
 			
+			thumbnails.setCellFactory(new Callback<ListView<Photo>, 
+		            ListCell<Photo>>() {
+		                @Override 
+		                public ListCell<Photo> call(ListView<Photo> list) {
+		                    return new newPhotoCell();
+		                }
+		            }
+		        );
+			
+			activeAlbum.updateAlbum(activeAlbum.getPhotos());
+			
 			if(thumbnails.getSelectionModel().getSelectedItem()==null){
 				mainView.setImage(null);
 				captionLabel.setText("Caption");
 				dateLabel.setText("Date");
 				tagsLabel.setText("Tags");
 			}
+			if(!activeAlbum.getPhotos().isEmpty() && index < activeAlbum.getPhotos().size()){
+				thumbnails.requestFocus();
+				thumbnails.getSelectionModel().select(index);
+				thumbnails.getFocusModel().focus(index);
+			}
+			else if(!activeAlbum.getPhotos().isEmpty()){
+				thumbnails.requestFocus();
+				thumbnails.getSelectionModel().select(index-1);
+				thumbnails.getFocusModel().focus(index-1);
+			}
 			
-			activeAlbum.updateAlbum(activeAlbum.getPhotos());
 			
 		}
 		else if(activeAlbum.getPhotos().isEmpty()){
@@ -353,7 +379,7 @@ public class AlbumController {
 	}
 	
 	@FXML
-	public void handleDeletePhoto(Event e){
+	public void handleDeletePhoto(Event e) throws InterruptedException{
 		
 		
 		if(activeAlbum.getPhotos().isEmpty()){
@@ -379,13 +405,24 @@ public class AlbumController {
 							break;
 						}
 					}
-					thumbnails.refresh();
+					
+					thumbnails.setCellFactory(new Callback<ListView<Photo>, 
+				            ListCell<Photo>>() {
+				                @Override 
+				                public ListCell<Photo> call(ListView<Photo> list) {
+				                    return new newPhotoCell();
+				                }
+				            }
+				        );
+					
 					if(thumbnails.getSelectionModel().getSelectedItem()==null){
 						mainView.setImage(null);
 						captionLabel.setText("Caption");
 						dateLabel.setText("Date");
 						tagsLabel.setText("Tags");
 					}
+					
+					
 				}
 			} else{
 				Alert alert = new Alert(AlertType.ERROR);
