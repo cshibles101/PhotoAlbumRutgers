@@ -189,25 +189,29 @@ public class SearchController {
 				
 				Tag searched = activeUser.getHash().get(tag);
 				
-				for(Photo p: searched.getPhotos()){
-					photoList.add(p);
+				if(searched != null){
+					for(Photo p: searched.getPhotos()){
+						photoList.add(p);
+					}
+					
+					thumbnails.setItems(photoList);
+					thumbnails.setCellFactory(new Callback<ListView<Photo>, 
+				            ListCell<Photo>>() {
+				                @Override 
+				                public ListCell<Photo> call(ListView<Photo> list) {
+				                    return new newPhotoCell();
+				                }
+				            }
+				        );
+					
+					thumbnails.requestFocus();
+					thumbnails.getSelectionModel().selectFirst();
+					thumbnails.getFocusModel().focus(0);
+					noImages.setVisible(false);
 				}
-				
-				thumbnails.setItems(photoList);
-				thumbnails.setCellFactory(new Callback<ListView<Photo>, 
-			            ListCell<Photo>>() {
-			                @Override 
-			                public ListCell<Photo> call(ListView<Photo> list) {
-			                    return new newPhotoCell();
-			                }
-			            }
-			        );
-				
-				thumbnails.requestFocus();
-				thumbnails.getSelectionModel().selectFirst();
-				thumbnails.getFocusModel().focus(0);
-				noImages.setVisible(false);
-				
+				else{
+					noImages.setVisible(true);
+				}
 			}
 			else{
 				Alert alert = new Alert(AlertType.ERROR);
@@ -311,7 +315,6 @@ public class SearchController {
 		this.activeAlbum = activeAlbum;
 		this.activeUser = activeUser;
 		this.photoAlbum = photoAlbum;
-		noImages.setVisible(true);
 		this.stage = stage;
 		
 		mainView = new ImageView();
