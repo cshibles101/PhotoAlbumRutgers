@@ -254,6 +254,8 @@ public class AlbumController {
 		}catch(Exception exc){
 			exc.printStackTrace();
 		}
+		
+		activeAlbum.updateAlbum(activeAlbum.getPhotos());
 	}
 	
 	@FXML

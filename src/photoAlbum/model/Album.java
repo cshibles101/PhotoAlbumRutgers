@@ -101,7 +101,8 @@ public class Album implements Serializable{
 	}
 	
 	public void deletePhoto(int index){
-		
+		photos.remove(index);
+		photoData.remove(index);
 	}
 	
 	public void updateAlbum(List<Photo> photos){

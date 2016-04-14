@@ -40,7 +40,7 @@ public class EditPhotoController {
 	
 	@FXML
 	public void initialize(){
-		albumChoice = new ChoiceBox<Album>(activeUser.getObservableList());
+		
 	}
 	
 	
@@ -53,16 +53,21 @@ public class EditPhotoController {
 		for(String s:tagSplit){
 			photo.addTag(s);
 			
-		
-		
+		destAlbum = albumChoice.getSelectionModel().getSelectedItem();	
+			
+		if(destAlbum == null);
+		else if (destAlbum.toString().equals(activeAlbum.toString()));
+		else {
+			destAlbum.addPhoto(photo);
+			activeAlbum.deletePhoto(photoIndex);
+		}
 		
 		Stage stage = (Stage) okBtn.getScene().getWindow();
 		stage.close();
 			
-		}
-		
-		
+		}		
 	}
+	
 	
 	@FXML
 	public void handleCancel(Event e){
@@ -77,6 +82,7 @@ public class EditPhotoController {
 		this.activeUser = activeUser;
 		this.photoAlbum = photoAlbum;
 		this.photoIndex = photoIndex;
+		albumChoice.setItems(activeUser.getObservableList());
 	}
 	
 	
