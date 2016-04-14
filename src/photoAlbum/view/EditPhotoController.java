@@ -37,6 +37,13 @@ public class EditPhotoController {
 	@FXML
 	private Button cancelBtn;
 	
+	
+	@FXML
+	public void initialize(){
+		albumChoice = new ChoiceBox<Album>(activeUser.getObservableList());
+	}
+	
+	
 	@FXML
 	public void handleOk(Event e){
 		
@@ -44,7 +51,9 @@ public class EditPhotoController {
 		
 		tagSplit = tagField.getText().split(",");
 		for(String s:tagSplit){
-			photo.addTag(s);		
+			photo.addTag(s);
+			
+		
 		
 		
 		Stage stage = (Stage) okBtn.getScene().getWindow();
