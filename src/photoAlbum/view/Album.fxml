@@ -31,7 +31,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Search">
               <items>
-                  <MenuItem mnemonicParsing="false" text="Photos" />
+                  <MenuItem fx:id="searchPhotos" mnemonicParsing="false" onAction="#handleOpenSearch" text="Photos" />
               </items>
             </Menu>
          </menus>
