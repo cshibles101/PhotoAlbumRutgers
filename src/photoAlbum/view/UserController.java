@@ -154,10 +154,12 @@ public class UserController {
             dialog.setTitle("New Album Info");
             dialog.showAndWait();
             
-            albumTable.requestFocus();
-			albumTable.getSelectionModel().select(activeUser.getAlbums().size()-1);
-			albumTable.getFocusModel().focus(activeUser.getAlbums().size()-1);
-			showAlbumDetails(albumTable.getItems().get(activeUser.getAlbums().size()-1));
+            if(!activeUser.getAlbums().isEmpty()){
+	            albumTable.requestFocus();
+				albumTable.getSelectionModel().select(activeUser.getAlbums().size()-1);
+				albumTable.getFocusModel().focus(activeUser.getAlbums().size()-1);
+				showAlbumDetails(albumTable.getItems().get(activeUser.getAlbums().size()-1));
+            }
 			
 			
 		}catch(Exception exc){
@@ -183,22 +185,38 @@ public class UserController {
 			
 			albumTable.getItems().remove(selectedIndex);
 			
-		}
 		
-		activeUser.updateAlbums(list);
-		if(list.size() > 0){
-			if(selectedIndex < list.size()){
-				albumTable.requestFocus();
-				albumTable.getSelectionModel().select(selectedIndex);
-				albumTable.getFocusModel().focus(selectedIndex);
-				showAlbumDetails(albumTable.getItems().get(selectedIndex));
+			activeUser.updateAlbums(list);
+			if(list.size() > 0){
+				if(selectedIndex < list.size()){
+					albumTable.requestFocus();
+					albumTable.getSelectionModel().select(selectedIndex);
+					albumTable.getFocusModel().focus(selectedIndex);
+					showAlbumDetails(albumTable.getItems().get(selectedIndex));
+				}
+				else{
+					albumTable.requestFocus();
+					albumTable.getSelectionModel().select(selectedIndex-1);
+					albumTable.getFocusModel().focus(selectedIndex-1);
+					showAlbumDetails(albumTable.getItems().get(selectedIndex-1));
+				}
 			}
-			else{
-				albumTable.requestFocus();
-				albumTable.getSelectionModel().select(selectedIndex-1);
-				albumTable.getFocusModel().focus(selectedIndex-1);
-				showAlbumDetails(albumTable.getItems().get(selectedIndex-1));
-			}
+		}
+		else if(activeUser.getAlbums().isEmpty()){
+			Alert alert = new Alert(AlertType.ERROR);
+            alert.initOwner(photoAlbum.getStage());
+            alert.setTitle("No Albums");
+            alert.setHeaderText("There are no albums to delete");
+            alert.showAndWait();
+		}
+		else{
+			Alert alert = new Alert(AlertType.ERROR);
+            alert.initOwner(photoAlbum.getStage());
+            alert.setTitle("No Album Selected");
+            alert.setHeaderText("You do not have an album selected");
+            alert.setContentText("Please select an album to delete.");
+            alert.showAndWait();
+			
 		}
 	}
 	
@@ -246,9 +264,7 @@ public class UserController {
 			Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(photoAlbum.getStage());
             alert.setTitle("No Albums");
-            alert.setHeaderText("There are no albums to open");
-            alert.setContentText("Please add a new album to open.");
-
+            alert.setHeaderText("There are no albums to edit");
             alert.showAndWait();
 		}
 		else{
@@ -257,7 +273,6 @@ public class UserController {
             alert.setTitle("No Album Selected");
             alert.setHeaderText("You do not have an album selected");
             alert.setContentText("Please select an album to rename.");
-
             alert.showAndWait();
 		}
 			

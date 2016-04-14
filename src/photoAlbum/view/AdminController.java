@@ -91,40 +91,42 @@ public class AdminController {
 	private void handleDelete(Event e){
 		
 		int selectedIndex = userTable.getSelectionModel().getSelectedIndex();
-		
-		if(selectedIndex > -1){
-			for(int x = 0; x < userList.size(); x++){
-				if(userList.get(x).equals(userTable.getItems().get(selectedIndex))){
-					userList.remove(x);
-					
-					break;
+		if(userList.isEmpty()){
+			Alert alert = new Alert(AlertType.ERROR);
+	        alert.initOwner(photoAlbum.getStage());
+	        alert.setTitle("No Users");
+	        alert.setHeaderText("There are no users to delete");
+
+	        alert.showAndWait();
+		}
+		else if(selectedIndex > -1){
+			Alert delete = new Alert(AlertType.CONFIRMATION);
+			delete.setTitle("Delete");
+			delete.setHeaderText("Are you sure you want to delete "+userTable.getItems().get(selectedIndex).getUsername()+"?");
+			Optional<ButtonType> result = delete.showAndWait();
+			if(result.get() == ButtonType.OK){
+				for(int x = 0; x < userList.size(); x++){
+					if(userList.get(x).equals(userTable.getItems().get(selectedIndex))){
+						userList.remove(x);
+						
+						break;
+					}
+				}
+				userTable.getItems().remove(selectedIndex);
+				photoAlbum.updateUsers(userList);
+				if(userList.size() > 0){
+					if(selectedIndex < userList.size()){
+						userTable.requestFocus();
+						userTable.getSelectionModel().select(selectedIndex);
+						userTable.getFocusModel().focus(selectedIndex);
+					}
+					else{
+						userTable.requestFocus();
+						userTable.getSelectionModel().select(selectedIndex-1);
+						userTable.getFocusModel().focus(selectedIndex-1);
+					}
 				}
 			}
-			
-			userTable.getItems().remove(selectedIndex);
-			
-		
-		
-		photoAlbum.updateUsers(userList);
-		if(userList.size() > 0){
-			if(selectedIndex < userList.size()){
-				userTable.requestFocus();
-				userTable.getSelectionModel().select(selectedIndex);
-				userTable.getFocusModel().focus(selectedIndex);
-			}
-			else{
-				userTable.requestFocus();
-				userTable.getSelectionModel().select(selectedIndex-1);
-				userTable.getFocusModel().focus(selectedIndex-1);
-			}
-		}
-		} else if(userList.isEmpty()){
-			Alert alert = new Alert(AlertType.ERROR);
-            alert.initOwner(photoAlbum.getStage());
-            alert.setTitle("No Users");
-            alert.setHeaderText("There are no users to delete");
-
-            alert.showAndWait();
 		} else{
 			Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(photoAlbum.getStage());
@@ -150,8 +152,8 @@ public class AdminController {
             userTable.requestFocus();
 			userTable.getSelectionModel().select(userList.size()-1);
 			userTable.getFocusModel().focus(userList.size()-1);
-            
-            sortUserList();
+
+	        sortUserList();
             
             
 		}catch(Exception exc){
@@ -173,11 +175,13 @@ public class AdminController {
 		this.photoAlbum = photoAlbum;
 		userList = photoAlbum.getUsers();
 		userTable.setItems(photoAlbum.getObservableList());
+        sortUserList();
 		if(!photoAlbum.getObservableList().isEmpty()){
 			userTable.requestFocus();
 			userTable.getSelectionModel().select(0);
 			userTable.getFocusModel().focus(0);
 		}
+
 		
 	}
 	

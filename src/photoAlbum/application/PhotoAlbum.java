@@ -39,15 +39,7 @@ public class PhotoAlbum extends Application{
 		userList.add(new User("Bob", "short"));
 		userList.add(new User("Gru", "nose"));
 		userList.add(new User("Stuart", "eye"));
-		userList.add(new User("Dave", "small"));
-		
-		userList.get(2).newAlbum("Noses");
-		userList.get(2).newAlbum("Evil");
-		userList.get(2).newAlbum("The Girls");
-
-
-		
-		
+		userList.add(new User("Dave", "small"));	
 		
 		for (User i : userList) 
 			 userData.add(i);
