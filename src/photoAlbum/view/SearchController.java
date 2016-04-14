@@ -1,6 +1,6 @@
 package photoAlbum.view;
 
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import javafx.collections.FXCollections;
@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
@@ -22,7 +23,6 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -34,7 +34,6 @@ import photoAlbum.model.Album;
 import photoAlbum.model.Photo;
 import photoAlbum.model.Tag;
 import photoAlbum.model.User;
-import photoAlbum.view.AlbumController.newPhotoCell;
 
 public class SearchController {
 	
@@ -228,10 +227,18 @@ public class SearchController {
 			}
 			
 		}
+		//search by date
 		else{
 			if((fromDate.getValue() != null && toDate.getValue() != null) 
 					&& fromDate.getValue().compareTo(toDate.getValue()) < 1){
+				LocalDate firstDate,secondDate;
 				
+				if(fromDate.getValue() != null && toDate.getValue() != null){
+					photoList.clear();
+					
+					
+					
+				}
 				
 				
 				
