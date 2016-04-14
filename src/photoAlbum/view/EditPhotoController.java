@@ -91,6 +91,8 @@ public class EditPhotoController {
 		}
 		}
 
+			
+		}
 	}
 	
 	
@@ -115,6 +117,10 @@ public class EditPhotoController {
 		captionField.setText(photo.getCaption());
 		tagField.setText(photo.getTagsString());
 		
+
+		albumChoice.setItems(activeUser.getObservableList());
+
+
 
 		albumChoice.setItems(activeUser.getObservableList());
 
