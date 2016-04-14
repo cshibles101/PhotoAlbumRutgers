@@ -3,6 +3,9 @@ package photoAlbum.view;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,8 +104,6 @@ public class AlbumController {
 	@FXML
 	public void initialize(){
 		
-		
-		
 		thumbnails.getSelectionModel().selectedItemProperty().addListener(
 	            (observable, oldValue, newValue) -> displayImage(newValue));
 	}
@@ -129,6 +130,8 @@ public class AlbumController {
            	 	view.setFitHeight(height);
            	 	
            	 	Label label = new Label(item.getCaption());
+           	 	
+           	 	item.setCaptionLabel(label);
            	 	
             	box.getChildren().addAll(view, label);
             	box.setAlignment(Pos.CENTER);
@@ -195,11 +198,23 @@ public class AlbumController {
 	@FXML
 	public void handleAddPhoto(Event e){
 		Image image = null;
+		Calendar temp = Calendar.getInstance();
+		
 		 FileChooser fileChooser = new FileChooser();
 		 fileChooser.setTitle("Open Resource File");
 		 fileChooser.getExtensionFilters().addAll(
 		         new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
 		 File selectedFile = fileChooser.showOpenDialog(photoAlbum.getStage());
+		 
+		 temp.setTimeInMillis(selectedFile.lastModified());
+		 temp.set(Calendar.MILLISECOND, 0);
+		 temp.set(Calendar.SECOND, 0);
+		 temp.set(Calendar.MINUTE, 0);
+		 temp.set(Calendar.HOUR, 0);
+		 
+		 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+
 		 if(selectedFile != null){
 			 try {
 				 BufferedImage bufferedImage = ImageIO.read(selectedFile);
@@ -208,7 +223,8 @@ public class AlbumController {
 				    
 				}
 			 
-			 Photo addedPhoto = new Photo(image);
+			 Photo addedPhoto = new Photo(image, temp, sdf.format(temp.getTime()));
+			 
 			 activeAlbum.addPhoto(addedPhoto);
 			 
 			 thumbnails.setCellFactory(new Callback<ListView<Photo>, 
@@ -219,42 +235,49 @@ public class AlbumController {
 			                }
 			            }
 			        );
+			thumbnails.requestFocus();
+			thumbnails.getSelectionModel().selectLast();
+			thumbnails.getFocusModel().focus(photoList.size()-1);
 		 }
 	 }
 	
 	@FXML
 	public void handleEditPhoto(Event e){
 		
-		Photo photo = thumbnails.getSelectionModel().getSelectedItem();
+		
 		int index = thumbnails.getSelectionModel().getSelectedIndex();
 		
-		try{
-			FXMLLoader loader1 = new FXMLLoader();
-			loader1.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/RootLayout.fxml"));
-			BorderPane editPhotoRoot = (BorderPane) loader1.load();
-			
-			Scene editPhoto = new Scene(editPhotoRoot);
-			
-			FXMLLoader loader2 = new FXMLLoader();
-			loader2.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/EditPhoto.fxml"));
-			AnchorPane editPhotoAnchor = (AnchorPane) loader2.load();
-			
-			editPhotoRoot.setCenter(editPhotoAnchor);
-			
-			EditPhotoController editPhotoController;
-			editPhotoController = loader2.getController();
-			editPhotoController.setMainApp(photo, activeAlbum, activeUser, photoAlbum, index);
+		if(index > -1){
+		Photo photo = thumbnails.getSelectionModel().getSelectedItem();
+			try{
+				FXMLLoader loader1 = new FXMLLoader();
+				loader1.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/RootLayout.fxml"));
+				BorderPane editPhotoRoot = (BorderPane) loader1.load();
+				
+				Scene editPhoto = new Scene(editPhotoRoot);
+				
+				FXMLLoader loader2 = new FXMLLoader();
+				loader2.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/EditPhoto.fxml"));
+				AnchorPane editPhotoAnchor = (AnchorPane) loader2.load();
+				
+				editPhotoRoot.setCenter(editPhotoAnchor);
+				
+				EditPhotoController editPhotoController;
+				editPhotoController = loader2.getController();
+				editPhotoController.setMainApp(photo, activeAlbum, activeUser, photoAlbum, index);
+		        
+		        Stage dialog = new Stage();
+		        
+		        dialog.setScene(editPhoto);
+	            dialog.setTitle("Edit Photo");
+	            dialog.showAndWait();
+	            
+	            
+	            captionLabel.setText(photo.getCaption());
 	        
-	        Stage dialog = new Stage();
-	        
-	        dialog.setScene(editPhoto);
-            dialog.setTitle("Edit Photo");
-            dialog.showAndWait();
-            
-            captionLabel.setText(photo.getCaption());
-        
-		}catch(Exception exc){
-			exc.printStackTrace();
+			}catch(Exception exc){
+				exc.printStackTrace();
+			}
 		}
 	}
 	
@@ -298,6 +321,9 @@ public class AlbumController {
 		mainView.setImage(photo.getImage());
 		
 		captionLabel.setText(photo.getCaption());
+		dateLabel.setText(photo.getDateString());
+		dateLabel.setAlignment(Pos.CENTER);
+		
 		
 	}
 	

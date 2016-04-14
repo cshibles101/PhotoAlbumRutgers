@@ -40,26 +40,26 @@ public class EditPhotoController {
 	
 	@FXML
 	public void initialize(){
-		albumChoice = new ChoiceBox<Album>(activeUser.getObservableList());
+		
 	}
 	
 	
 	@FXML
 	public void handleOk(Event e){
 		
+		
 		photo.setCaption(captionField.getText());
 		
 		tagSplit = tagField.getText().split(",");
 		for(String s:tagSplit){
-			photo.addTag(s);
-			
-		
-		
+			if(!s.isEmpty())
+				photo.addTag(s.trim());
+		}
 		
 		Stage stage = (Stage) okBtn.getScene().getWindow();
 		stage.close();
 			
-		}
+		
 		
 		
 	}
@@ -77,6 +77,7 @@ public class EditPhotoController {
 		this.activeUser = activeUser;
 		this.photoAlbum = photoAlbum;
 		this.photoIndex = photoIndex;
+		albumChoice = new ChoiceBox<Album>(activeUser.getObservableList());
 	}
 	
 	

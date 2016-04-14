@@ -65,11 +65,6 @@ public class Album implements Serializable{
 		return newestPhoto;
 	}
 	
-	public void setPhotoCount(int count){
-		photoCount = count;
-		photoCountProp.set(count);
-	}
-	
 	public void setName(String name){
 		albumName = name;
 		albumNameProp.set(name);
