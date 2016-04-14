@@ -88,10 +88,12 @@ public class UserController {
 	        albumName.setAlignment(Pos.CENTER);
 	        photoCount.setText(Integer.toString(album.getPhotoCount()));
 	        photoCount.setAlignment(Pos.CENTER);
-	        newDate.setText(album.getNew());
-	        newDate.setAlignment(Pos.CENTER);
-	        oldDate.setText(album.getOld());
-	        oldDate.setAlignment(Pos.CENTER);
+	        if(album.getNew() != null){
+		        newDate.setText(album.getNew().getDateString());
+		        newDate.setAlignment(Pos.CENTER);
+		        oldDate.setText(album.getOld().getDateString());
+		        oldDate.setAlignment(Pos.CENTER);
+	        }
 
 	    } else {
 	    	albumName.setText("");

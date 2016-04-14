@@ -22,8 +22,8 @@ public class Album implements Serializable{
 	
 	private String albumName;
 	private int photoCount;
-	private String oldestPhoto;
-	private String newestPhoto;
+	private Photo oldestPhoto;
+	private Photo newestPhoto;
 	private List<Photo> photos = new ArrayList<Photo>();
 	private ObservableList<Photo> photoData = FXCollections.observableArrayList();
 	
@@ -34,8 +34,8 @@ public class Album implements Serializable{
 		photoCount = 0;
 		albumNameProp = new SimpleStringProperty(name);
 		photoCountProp = new SimpleIntegerProperty(photoCount);
-		oldestPhoto = "";
-		newestPhoto = "";
+		oldestPhoto = null;
+		newestPhoto = null;
 		
 	}
 	
@@ -57,11 +57,11 @@ public class Album implements Serializable{
 		return photoCount;
 	}
 	
-	public String getOld(){
+	public Photo getOld(){
 		return oldestPhoto;
 	}
 	
-	public String getNew(){
+	public Photo getNew(){
 		return newestPhoto;
 	}
 	
@@ -93,12 +93,60 @@ public class Album implements Serializable{
 		photos.add(photo);
 		photoData.add(photo);
 		photoCount++;
+		
+		if(getNew() != null){
+			if(getNew().getDate().compareTo(photo.getDate()) <= 0){
+				newestPhoto = photo;
+			}
+		}
+		else{
+			newestPhoto = photo;
+		}
+		if(getOld() != null){
+			if(getOld().getDate().compareTo(photo.getDate()) >= 0){
+				oldestPhoto = photo;
+			}
+		}
+		else{
+			oldestPhoto = photo;
+		}
+		
 	}
 	
 	public void deletePhoto(int index){
+		Photo temp = photos.get(index);
 		photos.remove(index);
 		photoData.remove(index);
 		photoCount--;
+		
+		if(newestPhoto == temp){
+			int x = 1;
+			index = 0;
+			while(x < photos.size()){
+				if(photos.get(index).getDate().compareTo(photos.get(x).getDate()) < 0){
+					index = x;
+				}
+				x++;
+			}
+			newestPhoto = photos.get(index);
+			
+		}
+		if(oldestPhoto == temp){
+			int x = 1;
+			index = 0;
+			while(x < photos.size()){
+				if(photos.get(index).getDate().compareTo(photos.get(x).getDate()) > 0){
+					index = x;
+				}
+				x++;
+			}
+			oldestPhoto = photos.get(index);
+		}
+		
+		
+		
+		
+		
 	}
 	
 	public void updateAlbum(List<Photo> photos){
