@@ -50,12 +50,43 @@ public class EditPhotoController {
 	
 	@FXML
 	public void handleOk(Event e){
+<<<<<<< HEAD
 		limits.setVisible(false);
 		if(tagField.getText() != null)
 			tagSplit = tagField.getText().trim().split(",");
+=======
+		
+		
+		photo.setCaption(captionField.getText());
+		
+		tagSplit = tagField.getText().split(",");
+		for(String s:tagSplit){
+<<<<<<< HEAD
+			photo.addTag(s);
 			
+		destAlbum = albumChoice.getSelectionModel().getSelectedItem();	
+			
+		if(destAlbum == null);
+		else if (destAlbum.toString().equals(activeAlbum.toString()));
+		else {
+			destAlbum.addPhoto(photo);
+			activeAlbum.deletePhoto(photoIndex);
+=======
+			if(!s.isEmpty())
+				photo.addTag(s.trim());
+>>>>>>> 1725feeff19d57d36fe183584edcf8f50aea8848
+		}
+		
+		Stage stage = (Stage) okBtn.getScene().getWindow();
+		stage.close();
+>>>>>>> branch 'master' of https://css132@bitbucket.org/css132/photoalbum102.git
+			
+<<<<<<< HEAD
+		}		
+=======
 		
 		
+<<<<<<< HEAD
 		if(captionField.getText().length() > 50 ||(tagField.getText() != null && tagSplit.length > 5)){
 			limits.setVisible(true);
 		}
@@ -72,7 +103,12 @@ public class EditPhotoController {
 		}
 		Stage stage = (Stage) okBtn.getScene().getWindow();
 		stage.close();
+=======
+		
+>>>>>>> 1725feeff19d57d36fe183584edcf8f50aea8848
+>>>>>>> branch 'master' of https://css132@bitbucket.org/css132/photoalbum102.git
 	}
+	
 	
 	@FXML
 	public void handleCancel(Event e){
@@ -87,12 +123,19 @@ public class EditPhotoController {
 		this.activeUser = activeUser;
 		this.photoAlbum = photoAlbum;
 		this.photoIndex = photoIndex;
+<<<<<<< HEAD
+		albumChoice.setItems(activeUser.getObservableList());
+=======
 		albumChoice = new ChoiceBox<Album>(activeUser.getObservableList());
+<<<<<<< HEAD
 		
 		captionField.setText(photo.getCaption());
 		tagField.setText(photo.getTagsString());
 		
 		
+=======
+>>>>>>> 1725feeff19d57d36fe183584edcf8f50aea8848
+>>>>>>> branch 'master' of https://css132@bitbucket.org/css132/photoalbum102.git
 	}
 	
 	

@@ -313,6 +313,8 @@ public class AlbumController {
 				exc.printStackTrace();
 			}
 		}
+		
+		activeAlbum.updateAlbum(activeAlbum.getPhotos());
 	}
 	
 	@FXML
