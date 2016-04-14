@@ -2,6 +2,7 @@ package photoAlbum.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,6 +24,8 @@ public class User implements Serializable{
 	private List<Album> albums = new ArrayList<Album>();
 	private List<Tag> tagList = new ArrayList<Tag>();
 	private HashMap<String, Tag> tags = new HashMap<String, Tag>();
+	private List<Calendar> dateList = new ArrayList<Calendar>();
+	private HashMap<String, Calendar> dates = new HashMap<String, Calendar>();
 	
 	
 
@@ -106,6 +109,22 @@ public class User implements Serializable{
 	
 	public void deleteTag(Tag tag){
 		tagList.remove(tag);
+	}
+	
+	public HashMap<String, Calendar> getDateHash(){
+		return dates;
+	}
+	
+	public List<Calendar> getDates(){
+		return dateList;
+	}
+	
+	public void addDate(Calendar date){
+		dateList.add(date);
+	}
+	
+	public void deleteDate(Calendar date){
+		
 	}
 
 }
