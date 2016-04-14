@@ -69,10 +69,29 @@ public class EditPhotoController {
 						photo.addTag(s.trim());
 				}
 			}
+		photo.setCaption(captionField.getText());
+		
+		tagSplit = tagField.getText().split(",");
+		for(String s:tagSplit){
+
+			if(!s.isEmpty())
+			photo.addTag(s.trim());
+			
+		destAlbum = albumChoice.getSelectionModel().getSelectedItem();	
+			
+		if(destAlbum == null);
+		else if (destAlbum.toString().equals(activeAlbum.toString()));
+		else {
+			destAlbum.addPhoto(photo);
+			activeAlbum.deletePhoto(photoIndex);
 		}
 		Stage stage = (Stage) okBtn.getScene().getWindow();
 		stage.close();
+
+			
+		}
 	}
+	
 	
 	@FXML
 	public void handleCancel(Event e){
@@ -87,7 +106,10 @@ public class EditPhotoController {
 		this.activeUser = activeUser;
 		this.photoAlbum = photoAlbum;
 		this.photoIndex = photoIndex;
-		albumChoice = new ChoiceBox<Album>(activeUser.getObservableList());
+
+		albumChoice.setItems(activeUser.getObservableList());
+
+
 		
 		captionField.setText(photo.getCaption());
 		tagField.setText(photo.getTagsString());
