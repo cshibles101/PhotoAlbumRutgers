@@ -46,9 +46,6 @@ public class PhotoAlbum extends Application{
 		userList.get(2).newAlbum("The Girls");
 
 
-		userList.get(2).getAlbums().get(0).addPhoto(new Photo(new Image("http://g-ecx.images-amazon.com/images/G/01/aplusautomation/vendorimages/65fa961e-8f22-4fe6-a420-3c3c26dd2953._CB289161999__SL300__.jpg")));
-		userList.get(2).getAlbums().get(0).getPhotos().get(0).setCaption("MINIONS!");
-		userList.get(2).updateAlbums(userList.get(2).getAlbums());
 		
 		
 		

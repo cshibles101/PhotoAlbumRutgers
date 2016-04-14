@@ -53,13 +53,13 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="captionLabel" layoutX="80.0" layoutY="36.0" text="Caption">
+                              <Label fx:id="captionLabel" layoutX="44.0" layoutY="19.0" prefHeight="59.0" prefWidth="77.0" text="Caption" wrapText="true">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="dateLabel" layoutX="280.0" layoutY="42.0" text="Date" />
-                              <Label fx:id="tagsLabel" layoutX="480.0" layoutY="38.0" text="Tags" />
+                              <Label fx:id="dateLabel" alignment="CENTER" layoutX="264.0" layoutY="42.0" prefHeight="17.0" prefWidth="62.0" text="Date" />
+                              <Label fx:id="tagsLabel" layoutX="480.0" layoutY="2.0" prefHeight="89.0" prefWidth="25.0" text="Tags" wrapText="true" />
                               <Button layoutY="64.0" mnemonicParsing="false" prefWidth="41.0" text="Last" />
                               <Button layoutX="544.0" layoutY="66.0" mnemonicParsing="false" text="Next" />
                            </children>

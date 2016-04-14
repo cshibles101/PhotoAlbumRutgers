@@ -1,12 +1,14 @@
 package photoAlbum.model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
 public class Photo {
@@ -15,6 +17,7 @@ public class Photo {
 	private transient final StringProperty tagsProp;
 	private transient final ObjectProperty<Image> photoProp;
 	
+	private Label captionLabel;
 
 	private Image image;
 	
@@ -22,8 +25,12 @@ public class Photo {
 	
 	private List<String> tagsList;
 	
+	private final Calendar photoDate;
 	
-	public Photo(Image image){
+	private final String photoDateString;
+	
+	
+	public Photo(Image image, Calendar photoDate, String photoDateString){
 		
 		caption = "";
 		captionProp = new SimpleStringProperty("");
@@ -31,6 +38,8 @@ public class Photo {
 		tagsList = new ArrayList<String>();
 		this.image = image;
 		photoProp = new SimpleObjectProperty<Image>(image);
+		this.photoDate = photoDate;
+		this.photoDateString = photoDateString;
 		
 	}
 	
@@ -53,6 +62,7 @@ public class Photo {
 	public void setCaption(String caption){
 		this.caption = caption;
 		captionProp.set(caption);
+		captionLabel.setText(caption);
 	}
 	
 	public List<String> getTags(){
@@ -67,9 +77,24 @@ public class Photo {
 		return image;
 	}
 	
+	public Calendar getDate(){
+		return photoDate;
+	}
+	
+	public String getDateString(){
+		return photoDateString;
+	}
+	
+	
+	
+	public void setCaptionLabel(Label caption){
+		captionLabel = caption;
+	}
+	
 	@Override
 	public String toString(){
 		return caption + " " + tagsList;
 	}
+	
 	
 }
