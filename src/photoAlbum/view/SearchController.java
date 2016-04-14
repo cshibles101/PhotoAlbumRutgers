@@ -185,7 +185,7 @@ public class SearchController {
 			if(tagTxt.getText() != null && !tagTxt.getText().trim().isEmpty()){
 				photoList.clear();
 				
-				tag = tagTxt.getText().trim();
+				tag = tagTxt.getText().toLowerCase().trim();
 				
 				Tag searched = activeUser.getHash().get(tag);
 				
