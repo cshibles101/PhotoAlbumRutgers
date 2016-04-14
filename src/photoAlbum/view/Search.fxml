@@ -11,8 +11,8 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photoAlbum.view.SearchController">
@@ -39,8 +39,8 @@
                     <items>
                       <AnchorPane maxHeight="366.0" maxWidth="549.0" minHeight="366.0" minWidth="549.0" prefHeight="366.0" prefWidth="549.0">
                            <children>
-                              <ImageView fx:id="mainView" fitHeight="366.0" fitWidth="549.0" pickOnBounds="true" preserveRatio="true" />
                               <Label fx:id="noImages" alignment="CENTER" layoutX="194.0" layoutY="175.0" text="No Images Match Your Search" textFill="#a40000" visible="false" />
+                              <VBox fx:id="mainBox" maxHeight="366.0" maxWidth="585.0" prefHeight="366.0" prefWidth="585.0" />
                            </children></AnchorPane>
                         <AnchorPane maxHeight="89.0" maxWidth="549.0" minHeight="89.0" minWidth="549.0" prefHeight="89.0" prefWidth="549.0">
                            <children>
@@ -56,9 +56,9 @@
                               </Label>
                               <Label fx:id="dateLabel" layoutX="262.0" layoutY="36.0" text="Date" />
                               <Label fx:id="tagsLabel" layoutX="444.0" layoutY="36.0" text="Tags" />
-                              <Button fx:id="lastBtn" layoutY="64.0" mnemonicParsing="false" prefWidth="41.0" text="Last" />
-                              <Button fx:id="nextBtn" layoutX="508.0" layoutY="64.0" mnemonicParsing="false" text="Next" />
-                              <Label fx:id="albumLabel" alignment="CENTER" layoutX="236.0" layoutY="56.0" text="Current Album" />
+                              <Button fx:id="lastBtn" layoutY="64.0" mnemonicParsing="false" onAction="#handleLast" prefWidth="41.0" text="Last" />
+                              <Button fx:id="nextBtn" layoutX="508.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleNext" text="Next" />
+                              <Label fx:id="albumLabel" alignment="CENTER" layoutX="236.0" layoutY="56.0" minHeight="17.0" minWidth="78.0" text="Current Album" />
                            </children>
                         </AnchorPane>
                     </items>
@@ -71,7 +71,7 @@
                     <items>
                         <AnchorPane maxHeight="228.0" maxWidth="179.0" minHeight="228.0" minWidth="179.0" prefHeight="228.0" prefWidth="179.0" SplitPane.resizableWithParent="false">
                            <children>
-                              <TextField fx:id="tagTxt" layoutY="28.0" prefHeight="25.0" prefWidth="179.0" promptText="by tag(s)" AnchorPane.bottomAnchor="175.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
+                              <TextField fx:id="tagTxt" layoutY="28.0" prefHeight="25.0" prefWidth="179.0" promptText="by tag" AnchorPane.bottomAnchor="175.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
                               <DatePicker fx:id="toDate" layoutY="110.0" prefHeight="25.0" prefWidth="179.0" promptText="To Date" />
                               <DatePicker fx:id="fromDate" layoutY="69.0" prefHeight="25.0" prefWidth="179.0" promptText="From Date" />
                               <Label layoutX="66.0" layoutY="6.0" text="SEARCH">

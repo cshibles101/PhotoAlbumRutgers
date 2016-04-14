@@ -330,6 +330,8 @@ public class AlbumController {
 			}catch(Exception exc){
 				exc.printStackTrace();
 			}
+		
+			activeAlbum.updateAlbum(activeAlbum.getPhotos());
 			
 			thumbnails.setCellFactory(new Callback<ListView<Photo>, 
 		            ListCell<Photo>>() {
@@ -340,7 +342,6 @@ public class AlbumController {
 		            }
 		        );
 			
-			activeAlbum.updateAlbum(activeAlbum.getPhotos());
 			
 			if(thumbnails.getSelectionModel().getSelectedItem()==null){
 				mainView.setImage(null);

@@ -2,6 +2,7 @@ package photoAlbum.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -20,6 +21,8 @@ public class User implements Serializable{
 	private final String username;
 	private final String password;
 	private List<Album> albums = new ArrayList<Album>();
+	private List<Tag> tagList = new ArrayList<Tag>();
+	private HashMap<String, Tag> tags = new HashMap<String, Tag>();
 	
 	
 
@@ -87,6 +90,22 @@ public class User implements Serializable{
 		userAlbums.clear();
 		for (Album i : this.albums) 
 			 userAlbums.add(i);
+	}
+	
+	public HashMap<String, Tag> getHash(){
+		return tags;
+	}
+	
+	public List<Tag> getTags(){
+		return tagList;
+	}
+	
+	public void addTag(Tag tag){
+		tagList.add(tag);
+	}
+	
+	public void deleteTag(Tag tag){
+		tagList.remove(tag);
 	}
 
 }

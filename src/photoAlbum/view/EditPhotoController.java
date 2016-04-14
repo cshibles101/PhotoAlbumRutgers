@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import photoAlbum.application.PhotoAlbum;
 import photoAlbum.model.Album;
 import photoAlbum.model.Photo;
+import photoAlbum.model.Tag;
 import photoAlbum.model.User;
 
 public class EditPhotoController {
@@ -64,15 +65,32 @@ public class EditPhotoController {
 			limits.setVisible(true);
 		}
 		else{
+			if(!photo.getTags().isEmpty()){	
+				for(String s: photo.getTags()){
+					activeUser.getHash().get(s).deletePhoto(photo);
+				}
+			}
 			photo.getTags().clear();
+			
 			photo.setCaption(captionField.getText());
 			if(tagField.getText() != null){
 				photo.setTagsString(tagField.getText().trim());
 				for(String s:tagSplit){
-					if(!s.isEmpty())
-						photo.addTag(s.trim());
+					if(!s.isEmpty()){
+						if(activeUser.getHash().get(s) != null){
+							activeUser.getHash().get(s).deletePhoto(photo);
+							activeUser.getHash().get(s).addPhoto(photo);
+							
+						}
+						else{
+							activeUser.getHash().put(s, new Tag(s, photo));
+							
+						}
+						photo.getTags().add(s);
+					}
 				}
 			}
+			
 			photo.setCaption(captionField.getText());
 				
 			destAlbum = albumChoice.getSelectionModel().getSelectedItem();	

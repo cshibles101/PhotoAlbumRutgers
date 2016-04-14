@@ -3,6 +3,7 @@ package photoAlbum.view;
 import java.util.List;
 import java.util.Optional;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -22,10 +24,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import photoAlbum.application.PhotoAlbum;
 import photoAlbum.model.Album;
 import photoAlbum.model.Photo;
+import photoAlbum.model.Tag;
 import photoAlbum.model.User;
+import photoAlbum.view.AlbumController.newPhotoCell;
 
 public class SearchController {
 	
@@ -71,12 +76,12 @@ public class SearchController {
 	private Label tagsLabel;
 	@FXML
 	private Label albumLabel;
-	
+	@FXML
 	private VBox mainBox;
 	@FXML
 	private ImageView mainView;
 	
-	private ObservableList<Photo> photoList;
+	private ObservableList<Photo> photoList = FXCollections.observableArrayList();
 	@FXML
     private ListView<Photo> thumbnails;
 	
@@ -135,40 +140,73 @@ public class SearchController {
 		}
 	}
 	
+	static class newPhotoCell extends ListCell<Photo> {
+        @Override
+        public void updateItem(Photo item, boolean empty) {
+            super.updateItem(item, empty);
+            VBox box = new VBox();
+            if (item != null) {
+            	double width = 0, height = 0;
+            	ImageView view = new ImageView(item.getImage());
+            	view.setPreserveRatio(true);
+            	double picW = item.getImage().getWidth(), picH = item.getImage().getHeight();
+            	double ratio = 0;
+            	if(picW > picH){
+            		width = 50;
+            	}
+            	else{
+            		height = 50;
+            	}
+            	
+           	 	view.setFitWidth(width);
+           	 	view.setFitHeight(height);
+           	 	
+           	 	Label label = new Label(item.getCaption());
+           	 	label.setMinWidth(100);
+           	 	label.setMaxWidth(100);
+           	 	label.setAlignment(Pos.CENTER);
+           	 	
+           	 	item.setCaptionLabel(label);
+           	 	
+            	box.getChildren().addAll(view, label);
+            	box.setAlignment(Pos.CENTER);
+            	setGraphic(box);
+            }
+        }
+    }
+	
 	@FXML
 	public void handleSearch(Event e){
 		
+		
 		if (tagRadio.isSelected()){
-			String[] tagSplit;
+			String tag;
 			
 			if(tagTxt.getText() != null && !tagTxt.getText().trim().isEmpty()){
-				tagSplit = tagTxt.getText().trim().split(",");
+				photoList.clear();
 				
-				List<Album> list = activeUser.getAlbums();
+				tag = tagTxt.getText().trim();
 				
-				for(Album album: list){
-					List<Photo> photos = album.getPhotos();
-					for(Photo photo: photos){
-						boolean found = false;
-						for(String tag: photo.getTags()){
-							for(int x = 0; x < tagSplit.length; x++){
-								if(tag.equalsIgnoreCase(tagSplit[x])){
-									photoList.add(photo);
-								}
-								
-							}
-							if(found)
-								break;
-						}
-						
-						
-					}
+				Tag searched = activeUser.getHash().get(tag);
+				
+				for(Photo p: searched.getPhotos()){
+					photoList.add(p);
 				}
 				
 				thumbnails.setItems(photoList);
+				thumbnails.setCellFactory(new Callback<ListView<Photo>, 
+			            ListCell<Photo>>() {
+			                @Override 
+			                public ListCell<Photo> call(ListView<Photo> list) {
+			                    return new newPhotoCell();
+			                }
+			            }
+			        );
 				
-				
-				
+				thumbnails.requestFocus();
+				thumbnails.getSelectionModel().selectFirst();
+				thumbnails.getFocusModel().focus(0);
+				noImages.setVisible(false);
 				
 			}
 			else{
@@ -225,6 +263,41 @@ public class SearchController {
 		}
 	}
 	
+	@FXML
+	public void handleNext(Event e){
+		if(!photoList.isEmpty()){
+			int index = thumbnails.getSelectionModel().getSelectedIndex();
+			if(index+1 == photoList.size()){
+				thumbnails.requestFocus();
+				thumbnails.getSelectionModel().selectFirst();
+				thumbnails.getFocusModel().focus(0);
+			}
+			else{
+				thumbnails.requestFocus();
+				thumbnails.getSelectionModel().select(index+1);
+				thumbnails.getFocusModel().focus(index+1);
+			}
+		}
+	}
+	
+	@FXML
+	public void handleLast(Event e){
+		
+		if(!photoList.isEmpty()){
+			int index = thumbnails.getSelectionModel().getSelectedIndex();
+			if(index == 0){
+				thumbnails.requestFocus();
+				thumbnails.getSelectionModel().selectLast();
+				thumbnails.getFocusModel().focus(photoList.size()-1);
+			}
+			else{
+				thumbnails.requestFocus();
+				thumbnails.getSelectionModel().select(index-1);
+				thumbnails.getFocusModel().focus(index-1);
+			}
+		}
+		
+	}
 	
 	
 	public void setMainApp(Album activeAlbum, User activeUser, PhotoAlbum photoAlbum, Stage stage){
@@ -234,6 +307,13 @@ public class SearchController {
 		this.photoAlbum = photoAlbum;
 		noImages.setVisible(true);
 		this.stage = stage;
+		
+		mainView = new ImageView();
+		mainView.setPreserveRatio(true);
+		mainView.maxHeight(mainBox.getMaxHeight());
+		mainView.maxWidth(mainBox.getMaxWidth());
+		mainBox.getChildren().add(mainView);
+		mainBox.setAlignment(Pos.CENTER);
 		
 	}
 

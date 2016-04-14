@@ -112,31 +112,35 @@ public class Album implements Serializable{
 		photos.remove(index);
 		photoData.remove(index);
 		photoCount--;
-		
-		if(newestPhoto == temp){
-			int x = 1;
-			index = 0;
-			while(x < photos.size()){
-				if(photos.get(index).getDate().compareTo(photos.get(x).getDate()) < 0){
-					index = x;
+		if(photoCount > 0){
+			if(newestPhoto == temp){
+				int x = 1;
+				index = 0;
+				while(x < photos.size()){
+					if(photos.get(index).getDate().compareTo(photos.get(x).getDate()) < 0){
+						index = x;
+					}
+					x++;
 				}
-				x++;
+				newestPhoto = photos.get(index);
 			}
-			newestPhoto = photos.get(index);
-			
-		}
-		if(oldestPhoto == temp){
-			int x = 1;
-			index = 0;
-			while(x < photos.size()){
-				if(photos.get(index).getDate().compareTo(photos.get(x).getDate()) > 0){
-					index = x;
-				}
-				x++;
-			}
-			oldestPhoto = photos.get(index);
-		}
 		
+			if(oldestPhoto == temp){
+				int x = 1;
+				index = 0;
+				while(x < photos.size()){
+					if(photos.get(index).getDate().compareTo(photos.get(x).getDate()) > 0){
+						index = x;
+					}
+					x++;
+				}
+				oldestPhoto = photos.get(index);
+			}
+		}
+		else{
+			newestPhoto = null;
+			oldestPhoto = null;
+		}
 		
 		
 		
