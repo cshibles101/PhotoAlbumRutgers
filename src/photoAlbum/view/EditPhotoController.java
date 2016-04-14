@@ -113,17 +113,6 @@ public class EditPhotoController {
 		albumChoice.setItems(activeUser.getObservableList());
 
 
-		
-		captionField.setText(photo.getCaption());
-		tagField.setText(photo.getTagsString());
-		
-
-		albumChoice.setItems(activeUser.getObservableList());
-
-
-
-		albumChoice.setItems(activeUser.getObservableList());
-
 
 	}
 	
