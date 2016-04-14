@@ -12,6 +12,8 @@ public class SearchController {
 	private PhotoAlbum photoAlbum;
 	
 	
+	
+	
 	public void initialize(){
 		
 	}

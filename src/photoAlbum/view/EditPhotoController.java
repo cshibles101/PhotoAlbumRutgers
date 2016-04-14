@@ -77,13 +77,10 @@ public class EditPhotoController {
 				
 			destAlbum = albumChoice.getSelectionModel().getSelectedItem();	
 				
-			if(destAlbum == null);
-			else if (destAlbum.toString().equals(activeAlbum.toString()));
+			if(destAlbum == null || destAlbum.toString().equals(activeAlbum.toString()));
 			else {
 				destAlbum.addPhoto(photo);
 				activeAlbum.deletePhoto(photoIndex);
-				
-				
 			}
 			Stage stage = (Stage) okBtn.getScene().getWindow();
 			stage.close();
