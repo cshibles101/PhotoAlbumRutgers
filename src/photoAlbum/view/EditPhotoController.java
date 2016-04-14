@@ -1,12 +1,10 @@
 package photoAlbum.view;
 
-import java.util.ArrayList;
-
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import photoAlbum.application.PhotoAlbum;
 import photoAlbum.model.Album;
@@ -25,10 +23,10 @@ public class EditPhotoController {
 	private Album destAlbum;
 	
 	@FXML
-	TextField captionField;
+	TextArea captionField;
 	
 	@FXML
-	TextField tagField;
+	TextArea tagField;
 	
 	@FXML
 	ChoiceBox<Album> albumChoice;
@@ -42,14 +40,11 @@ public class EditPhotoController {
 	
 	public void handleOk(Event e){
 		
-		photo.setCaption(captionField.getSelectedText());
+		photo.setCaption(captionField.getText());
 		
-		tagSplit = tagField.getSelectedText().split(",");
+		tagSplit = tagField.getText().split(",");
 		for(String s:tagSplit){
-			photo.addTag(s);
-		
-		System.out.println(photo.toString());
-		
+			photo.addTag(s);		
 		
 		
 		Stage stage = (Stage) okBtn.getScene().getWindow();
