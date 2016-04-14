@@ -13,19 +13,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photoAlbum.view.SearchController">
    <children>
-      <MenuBar layoutY="2.0" prefWidth="750.0">
+      <MenuBar fx:id="menuBar" layoutY="2.0" prefWidth="750.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu fx:id="file" mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem fx:id="menuClose" mnemonicParsing="false" onAction="#handleClose" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Create">
+          <Menu fx:id="create" mnemonicParsing="false" text="Create">
             <items>
-              <MenuItem mnemonicParsing="false" text="Album" />
+              <MenuItem fx:id="menuAlbum" mnemonicParsing="false" text="Album" />
             </items>
           </Menu>
         </menus>
@@ -51,8 +50,8 @@
                               </Label>
                               <Label layoutX="262.0" layoutY="36.0" text="Date" />
                               <Label layoutX="444.0" layoutY="36.0" text="Tags" />
-                              <Button layoutY="64.0" mnemonicParsing="false" prefWidth="41.0" text="Last" />
-                              <Button layoutX="508.0" layoutY="64.0" mnemonicParsing="false" text="Next" />
+                              <Button fx:id="lastBtn" layoutY="64.0" mnemonicParsing="false" prefWidth="41.0" text="Last" />
+                              <Button fx:id="nextBtn" layoutX="508.0" layoutY="64.0" mnemonicParsing="false" text="Next" />
                            </children>
                         </AnchorPane>
                     </items>
@@ -65,22 +64,22 @@
                     <items>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="143.0" prefWidth="169.0" SplitPane.resizableWithParent="false">
                            <children>
-                              <TextField layoutY="28.0" prefHeight="25.0" prefWidth="179.0" promptText="by tag(s)" AnchorPane.bottomAnchor="175.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
-                              <DatePicker layoutY="110.0" prefHeight="25.0" prefWidth="179.0" promptText="To Date" />
-                              <DatePicker layoutY="69.0" prefHeight="25.0" prefWidth="179.0" promptText="From Date" />
+                              <TextField fx:id="tagTxt" layoutY="28.0" prefHeight="25.0" prefWidth="179.0" promptText="by tag(s)" AnchorPane.bottomAnchor="175.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
+                              <DatePicker fx:id="toDate" layoutY="110.0" prefHeight="25.0" prefWidth="179.0" promptText="To Date" />
+                              <DatePicker fx:id="fromDate" layoutY="69.0" prefHeight="25.0" prefWidth="179.0" promptText="From Date" />
                               <Label layoutX="66.0" layoutY="6.0" text="SEARCH">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
                               <Label layoutX="66.0" layoutY="53.0" text="or" />
-                              <Button defaultButton="true" layoutX="64.0" layoutY="144.0" mnemonicParsing="false" text="Search" />
-                              <RadioButton layoutX="21.0" layoutY="177.0" mnemonicParsing="false" selected="true" text="Search By Tag(s)">
+                              <Button fx:id="searchBtn" defaultButton="true" layoutX="64.0" layoutY="144.0" mnemonicParsing="false" text="Search" />
+                              <RadioButton fx:id="tagRadio" layoutX="21.0" layoutY="177.0" mnemonicParsing="false" selected="true" text="Search By Tag(s)">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="Search" />
                                  </toggleGroup>
                               </RadioButton>
-                              <RadioButton layoutX="21.0" layoutY="206.0" mnemonicParsing="false" text="Search By Dates" toggleGroup="$Search" />
+                              <RadioButton fx:id="dateRadio" layoutX="21.0" layoutY="206.0" mnemonicParsing="false" text="Search By Dates" toggleGroup="$Search" />
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
