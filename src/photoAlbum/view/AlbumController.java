@@ -328,21 +328,11 @@ public class AlbumController {
 			
 			if(thumbnails.getSelectionModel().getSelectedItem()==null){
 				mainView.setImage(null);
-				captionLabel.setText("Caption");
-				dateLabel.setText("Date");
-				tagsLabel.setText("Tags");
 			}
-			else{
-				thumbnails.requestFocus();
-				thumbnails.getSelectionModel().select(index);
-				thumbnails.getFocusModel().focus(index);
-			}
-			thumbnails.refresh();
-			}
+			
+		}
 		
 		activeAlbum.updateAlbum(activeAlbum.getPhotos());
-		
-		
 	}
 	
 	@FXML
