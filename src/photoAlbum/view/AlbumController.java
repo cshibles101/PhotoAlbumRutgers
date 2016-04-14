@@ -334,12 +334,7 @@ public class AlbumController {
 					
 					break;
 				}
-			}
-			
-			thumbnails.getItems().remove(selectedIndex);
-			
-		
-		
+			}	
 
 		if(activeAlbum.getPhotos().size() > 0){
 			if(selectedIndex < activeAlbum.getPhotos().size()){
