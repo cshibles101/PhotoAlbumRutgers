@@ -110,9 +110,6 @@ public class EditPhotoController {
 		this.photoAlbum = photoAlbum;
 		this.photoIndex = photoIndex;
 
-		albumChoice.setItems(activeUser.getObservableList());
-
-
 
 	}
 	
