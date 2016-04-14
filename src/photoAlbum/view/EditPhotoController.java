@@ -52,8 +52,9 @@ public class EditPhotoController {
 		
 		tagSplit = tagField.getText().split(",");
 		for(String s:tagSplit){
-<<<<<<< HEAD
-			photo.addTag(s);
+
+			if(!s.isEmpty())
+			photo.addTag(s.trim());
 			
 		destAlbum = albumChoice.getSelectionModel().getSelectedItem();	
 			
@@ -62,22 +63,12 @@ public class EditPhotoController {
 		else {
 			destAlbum.addPhoto(photo);
 			activeAlbum.deletePhoto(photoIndex);
-=======
-			if(!s.isEmpty())
-				photo.addTag(s.trim());
->>>>>>> 1725feeff19d57d36fe183584edcf8f50aea8848
 		}
 		
 		Stage stage = (Stage) okBtn.getScene().getWindow();
 		stage.close();
 			
-<<<<<<< HEAD
-		}		
-=======
-		
-		
-		
->>>>>>> 1725feeff19d57d36fe183584edcf8f50aea8848
+		}
 	}
 	
 	
@@ -94,11 +85,10 @@ public class EditPhotoController {
 		this.activeUser = activeUser;
 		this.photoAlbum = photoAlbum;
 		this.photoIndex = photoIndex;
-<<<<<<< HEAD
+
 		albumChoice.setItems(activeUser.getObservableList());
-=======
-		albumChoice = new ChoiceBox<Album>(activeUser.getObservableList());
->>>>>>> 1725feeff19d57d36fe183584edcf8f50aea8848
+
+
 	}
 	
 	
