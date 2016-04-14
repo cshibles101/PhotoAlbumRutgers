@@ -339,9 +339,7 @@ public class AlbumController {
 			}
 			thumbnails.refresh();
 			}
-			}
-			
-		}
+		
 		activeAlbum.updateAlbum(activeAlbum.getPhotos());
 		
 		
