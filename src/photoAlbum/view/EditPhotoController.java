@@ -111,6 +111,10 @@ public class EditPhotoController {
 		this.photoIndex = photoIndex;
 
 
+
+		albumChoice.setItems(activeUser.getObservableList());
+
+
 	}
 	
 	
