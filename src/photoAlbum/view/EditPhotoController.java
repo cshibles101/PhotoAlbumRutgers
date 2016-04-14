@@ -26,10 +26,10 @@ public class EditPhotoController {
 	private Album destAlbum;
 	
 	@FXML
-	private TextArea captionField;
+	TextArea captionField;
 	
 	@FXML
-	private TextArea tagField;
+	TextArea tagField;
 	
 	@FXML
 	private ChoiceBox<Album> albumChoice;
@@ -45,12 +45,9 @@ public class EditPhotoController {
 		
 		photo.setCaption(captionField.getText());
 		
-		tagSplit = tagField.getSelectedText().split(",");
+		tagSplit = tagField.getText().split(",");
 		for(String s:tagSplit){
-			photo.addTag(s);
-		
-		System.out.println(photo.toString());
-		
+			photo.addTag(s);		
 		
 		
 		Stage stage = (Stage) okBtn.getScene().getWindow();
