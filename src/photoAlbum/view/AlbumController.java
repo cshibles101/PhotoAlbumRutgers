@@ -106,6 +106,7 @@ public class AlbumController {
 		
 		thumbnails.getSelectionModel().selectedItemProperty().addListener(
 	            (observable, oldValue, newValue) -> displayImage(newValue));
+		
 	}
 	
 	static class newPhotoCell extends ListCell<Photo> {
@@ -268,6 +269,18 @@ public class AlbumController {
 	            if(addedPhoto.getTagsString() != null)
 	            	tagsLabel.setText("Tags: "+addedPhoto.getTagsString());
 	            captionLabel.setText(addedPhoto.getCaption());
+	            
+	            if(thumbnails.getSelectionModel().getSelectedItem()==null){
+					mainView.setImage(null);
+					captionLabel.setText("Caption");
+					dateLabel.setText("Date");
+					tagsLabel.setText("Tags");
+				}
+				else{
+					thumbnails.requestFocus();
+					thumbnails.getSelectionModel().select(index);
+					thumbnails.getFocusModel().focus(index);
+				}
 	        
 			}catch(Exception exc){
 				exc.printStackTrace();
@@ -315,11 +328,21 @@ public class AlbumController {
 			
 			if(thumbnails.getSelectionModel().getSelectedItem()==null){
 				mainView.setImage(null);
-			};
+				captionLabel.setText("Caption");
+				dateLabel.setText("Date");
+				tagsLabel.setText("Tags");
+			}
+			else{
+				thumbnails.requestFocus();
+				thumbnails.getSelectionModel().select(index);
+				thumbnails.getFocusModel().focus(index);
+			}
+			thumbnails.refresh();
 			
 		}
-		
 		activeAlbum.updateAlbum(activeAlbum.getPhotos());
+		
+		
 	}
 	
 	@FXML
@@ -328,7 +351,8 @@ public class AlbumController {
 	}
 	
 	public void displayImage(Photo photo){
-		
+		if(thumbnails.getSelectionModel().getSelectedItem()==null)
+		{}else{
 		double width = photo.getImage().getWidth(), height = photo.getImage().getHeight();
 		//System.out.println(width+" "+height);
 		if(width > 585 && height > 366){
@@ -367,7 +391,7 @@ public class AlbumController {
 		dateLabel.setText(photo.getDateString());
 		dateLabel.setAlignment(Pos.CENTER);
 		
-		
+		}
 	}
 	
 	@FXML
