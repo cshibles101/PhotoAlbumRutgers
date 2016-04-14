@@ -278,6 +278,11 @@ public class AlbumController {
 			}catch(Exception exc){
 				exc.printStackTrace();
 			}
+			
+			if(thumbnails.getSelectionModel().getSelectedItem()==null){
+				mainView.setImage(null);
+			};
+			
 		}
 		
 		activeAlbum.updateAlbum(activeAlbum.getPhotos());
