@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -480,6 +479,38 @@ public class AlbumController {
 			}
 		}
 		
+	}
+	
+	
+	@FXML
+	public void handleOpenSearch(Event e){
+		
+		try{
+			FXMLLoader loader1 = new FXMLLoader();
+			loader1.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/RootLayout.fxml"));
+			BorderPane searchRoot = (BorderPane) loader1.load();
+			
+			Scene search = new Scene(searchRoot);
+			
+			FXMLLoader loader2 = new FXMLLoader();
+			loader2.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/Search.fxml"));
+			AnchorPane searchAnchor = (AnchorPane) loader2.load();
+			
+			searchRoot.setCenter(searchAnchor);
+			
+			SearchController searchController;
+			searchController = loader2.getController();
+			searchController.setMainApp(activeAlbum, activeUser, photoAlbum);
+	        
+	        Stage dialog = new Stage();
+	        
+	        dialog.setScene(search);
+            dialog.setTitle("Search");
+            dialog.showAndWait();
+        
+		}catch(Exception exc){
+			exc.printStackTrace();
+		}
 	}
 	
 	
