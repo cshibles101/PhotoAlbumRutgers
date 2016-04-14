@@ -4,6 +4,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import photoAlbum.application.PhotoAlbum;
@@ -37,6 +38,9 @@ public class EditPhotoController {
 	@FXML
 	private Button cancelBtn;
 	
+	@FXML
+	private Label limits;
+	
 	
 	@FXML
 	public void initialize(){
@@ -46,22 +50,28 @@ public class EditPhotoController {
 	
 	@FXML
 	public void handleOk(Event e){
-		
-		
-		photo.setCaption(captionField.getText());
-		
-		tagSplit = tagField.getText().split(",");
-		for(String s:tagSplit){
-			if(!s.isEmpty())
-				photo.addTag(s.trim());
-		}
-		
-		Stage stage = (Stage) okBtn.getScene().getWindow();
-		stage.close();
+		limits.setVisible(false);
+		if(tagField.getText() != null)
+			tagSplit = tagField.getText().trim().split(",");
 			
 		
 		
-		
+		if(captionField.getText().length() > 50 ||(tagField.getText() != null && tagSplit.length > 5)){
+			limits.setVisible(true);
+		}
+		else{
+			photo.getTags().clear();
+			photo.setCaption(captionField.getText());
+			if(tagField.getText() != null){
+				photo.setTagsString(tagField.getText().trim());
+				for(String s:tagSplit){
+					if(!s.isEmpty())
+						photo.addTag(s.trim());
+				}
+			}
+		}
+		Stage stage = (Stage) okBtn.getScene().getWindow();
+		stage.close();
 	}
 	
 	@FXML
@@ -78,6 +88,11 @@ public class EditPhotoController {
 		this.photoAlbum = photoAlbum;
 		this.photoIndex = photoIndex;
 		albumChoice = new ChoiceBox<Album>(activeUser.getObservableList());
+		
+		captionField.setText(photo.getCaption());
+		tagField.setText(photo.getTagsString());
+		
+		
 	}
 	
 	

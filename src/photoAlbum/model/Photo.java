@@ -25,6 +25,8 @@ public class Photo {
 	
 	private List<String> tagsList;
 	
+	private String tagsString;
+	
 	private final Calendar photoDate;
 	
 	private final String photoDateString;
@@ -71,6 +73,14 @@ public class Photo {
 	
 	public void addTag(String tag){
 		tagsList.add(tag);
+	}
+	
+	public void setTagsString(String string){
+		tagsString = string;
+	}
+	
+	public String getTagsString(){
+		return tagsString;
 	}
 	
 	public Image getImage(){

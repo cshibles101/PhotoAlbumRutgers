@@ -130,6 +130,9 @@ public class AlbumController {
            	 	view.setFitHeight(height);
            	 	
            	 	Label label = new Label(item.getCaption());
+           	 	label.setMinWidth(100);
+           	 	label.setMaxWidth(100);
+           	 	label.setAlignment(Pos.CENTER);
            	 	
            	 	item.setCaptionLabel(label);
            	 	
@@ -206,13 +209,7 @@ public class AlbumController {
 		         new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
 		 File selectedFile = fileChooser.showOpenDialog(photoAlbum.getStage());
 		 
-		 temp.setTimeInMillis(selectedFile.lastModified());
-		 temp.set(Calendar.MILLISECOND, 0);
-		 temp.set(Calendar.SECOND, 0);
-		 temp.set(Calendar.MINUTE, 0);
-		 temp.set(Calendar.HOUR, 0);
 		 
-		 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
 
 		 if(selectedFile != null){
@@ -222,6 +219,13 @@ public class AlbumController {
 				} catch (IOException ex) {
 				    
 				}
+			 temp.setTimeInMillis(selectedFile.lastModified());
+			 temp.set(Calendar.MILLISECOND, 0);
+			 temp.set(Calendar.SECOND, 0);
+			 temp.set(Calendar.MINUTE, 0);
+			 temp.set(Calendar.HOUR, 0);
+			 
+			 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 			 
 			 Photo addedPhoto = new Photo(image, temp, sdf.format(temp.getTime()));
 			 
@@ -238,6 +242,36 @@ public class AlbumController {
 			thumbnails.requestFocus();
 			thumbnails.getSelectionModel().selectLast();
 			thumbnails.getFocusModel().focus(photoList.size()-1);
+			
+			try{
+				FXMLLoader loader1 = new FXMLLoader();
+				loader1.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/RootLayout.fxml"));
+				BorderPane editPhotoRoot = (BorderPane) loader1.load();
+				
+				Scene editPhoto = new Scene(editPhotoRoot);
+				
+				FXMLLoader loader2 = new FXMLLoader();
+				loader2.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/EditPhoto.fxml"));
+				AnchorPane editPhotoAnchor = (AnchorPane) loader2.load();
+				
+				editPhotoRoot.setCenter(editPhotoAnchor);
+				
+				EditPhotoController editPhotoController;
+				editPhotoController = loader2.getController();
+				editPhotoController.setMainApp(addedPhoto, activeAlbum, activeUser, photoAlbum, index);
+		        
+		        Stage dialog = new Stage();
+		        
+		        dialog.setScene(editPhoto);
+	            dialog.setTitle("Add Photo Details");
+	            dialog.showAndWait();
+	            if(addedPhoto.getTagsString() != null)
+	            	tagsLabel.setText("Tags: "+addedPhoto.getTagsString());
+	            captionLabel.setText(addedPhoto.getCaption());
+	        
+			}catch(Exception exc){
+				exc.printStackTrace();
+			}
 		 }
 	 }
 	
@@ -271,8 +305,8 @@ public class AlbumController {
 		        dialog.setScene(editPhoto);
 	            dialog.setTitle("Edit Photo");
 	            dialog.showAndWait();
-	            
-	            
+	            if(photo.getTagsString() != null)
+	            	tagsLabel.setText("Tags: "+photo.getTagsString());
 	            captionLabel.setText(photo.getCaption());
 	        
 			}catch(Exception exc){
@@ -319,11 +353,49 @@ public class AlbumController {
 		}
 		
 		mainView.setImage(photo.getImage());
+		if(photo.getTagsString() != null)
+			tagsLabel.setText("Tags: "+photo.getTagsString());
 		
 		captionLabel.setText(photo.getCaption());
 		dateLabel.setText(photo.getDateString());
 		dateLabel.setAlignment(Pos.CENTER);
 		
+		
+	}
+	
+	@FXML
+	public void handleNext(Event e){
+		if(!photoList.isEmpty()){
+			int index = thumbnails.getSelectionModel().getSelectedIndex();
+			if(index+1 == photoList.size()){
+				thumbnails.requestFocus();
+				thumbnails.getSelectionModel().selectFirst();
+				thumbnails.getFocusModel().focus(0);
+			}
+			else{
+				thumbnails.requestFocus();
+				thumbnails.getSelectionModel().select(index+1);
+				thumbnails.getFocusModel().focus(index+1);
+			}
+		}
+	}
+	
+	@FXML
+	public void handleLast(Event e){
+		
+		if(!photoList.isEmpty()){
+			int index = thumbnails.getSelectionModel().getSelectedIndex();
+			if(index == 0){
+				thumbnails.requestFocus();
+				thumbnails.getSelectionModel().selectLast();
+				thumbnails.getFocusModel().focus(photoList.size()-1);
+			}
+			else{
+				thumbnails.requestFocus();
+				thumbnails.getSelectionModel().select(index-1);
+				thumbnails.getFocusModel().focus(index-1);
+			}
+		}
 		
 	}
 	
