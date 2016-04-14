@@ -7,7 +7,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -22,6 +24,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -256,7 +260,49 @@ public class SearchController {
 	}
 	
 	
-	
+	@FXML
+	public void handleCreate(Event e){
+		
+		if(photoList.isEmpty()){
+			Alert alert = new Alert(AlertType.ERROR);
+            alert.initOwner(photoAlbum.getStage());
+            alert.setTitle("No Photos");
+            alert.setHeaderText("There are no photos in your search.");
+            alert.showAndWait();
+		}    
+		else{
+			try{
+				FXMLLoader loader1 = new FXMLLoader();
+				loader1.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/RootLayout.fxml"));
+				BorderPane newAlbumRoot = (BorderPane) loader1.load();
+				
+				Scene newAlbum = new Scene(newAlbumRoot);
+				
+				FXMLLoader loader2 = new FXMLLoader();
+				loader2.setLocation(PhotoAlbum.class.getResource("/photoAlbum/view/NewAlbum.fxml"));
+				AnchorPane newAlbumAnchor = (AnchorPane) loader2.load();
+				
+				newAlbumRoot.setCenter(newAlbumAnchor);
+				
+				NewAlbumDialogController newAblumDialogController;
+		        newAblumDialogController = loader2.getController();
+		        newAblumDialogController.setMainApp(photoAlbum, activeUser);
+		        
+		        Stage dialog = new Stage();
+		        
+		        dialog.setScene(newAlbum);
+	            dialog.setTitle("New Album Info");
+	            dialog.showAndWait();			
+				
+			}catch(Exception exc){
+				exc.printStackTrace();
+			}
+			
+			for(Photo photo:photoList){
+				activeUser.getAlbums().get(activeUser.getAlbums().size()-1).addPhoto(photo);
+			}
+		}
+	}
 	
 	
 	@FXML

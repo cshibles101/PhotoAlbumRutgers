@@ -26,7 +26,7 @@
           </Menu>
           <Menu fx:id="create" mnemonicParsing="false" text="Create">
             <items>
-              <MenuItem fx:id="menuAlbum" mnemonicParsing="false" text="Album" />
+              <MenuItem fx:id="menuAlbum" mnemonicParsing="false" onAction="#handleCreate" text="Album" />
             </items>
           </Menu>
         </menus>
