@@ -3,6 +3,7 @@ package photoAlbum.view;
 import java.util.List;
 import java.util.Optional;
 
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -75,7 +76,7 @@ public class SearchController {
 	@FXML
 	private ImageView mainView;
 	
-	private List<Photo> photoList;
+	private ObservableList<Photo> photoList;
 	@FXML
     private ListView<Photo> thumbnails;
 	
@@ -138,9 +139,33 @@ public class SearchController {
 	public void handleSearch(Event e){
 		
 		if (tagRadio.isSelected()){
+			String[] tagSplit;
+			
 			if(tagTxt.getText() != null && !tagTxt.getText().trim().isEmpty()){
+				tagSplit = tagTxt.getText().trim().split(",");
 				
+				List<Album> list = activeUser.getAlbums();
 				
+				for(Album album: list){
+					List<Photo> photos = album.getPhotos();
+					for(Photo photo: photos){
+						boolean found = false;
+						for(String tag: photo.getTags()){
+							for(int x = 0; x < tagSplit.length; x++){
+								if(tag.equalsIgnoreCase(tagSplit[x])){
+									photoList.add(photo);
+								}
+								
+							}
+							if(found)
+								break;
+						}
+						
+						
+					}
+				}
+				
+				thumbnails.setItems(photoList);
 				
 				
 				
@@ -160,6 +185,8 @@ public class SearchController {
 		else{
 			if((fromDate.getValue() != null && toDate.getValue() != null) 
 					&& fromDate.getValue().compareTo(toDate.getValue()) < 1){
+				
+				
 				
 				
 			}

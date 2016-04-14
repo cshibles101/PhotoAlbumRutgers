@@ -62,6 +62,7 @@ public class Photo {
 	}
 	
 	public void setTagsString(String string){
+		tagsList.clear();
 		tagsString = string;
 	}
 	
