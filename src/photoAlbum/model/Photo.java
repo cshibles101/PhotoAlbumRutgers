@@ -12,10 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
 public class Photo {
-
-	private transient final StringProperty captionProp;
-	private transient final StringProperty tagsProp;
-	private transient final ObjectProperty<Image> photoProp;
 	
 	private Label captionLabel;
 
@@ -31,30 +27,17 @@ public class Photo {
 	
 	private final String photoDateString;
 	
+	private String album;
+	
 	
 	public Photo(Image image, Calendar photoDate, String photoDateString){
 		
 		caption = "";
-		captionProp = new SimpleStringProperty("");
-		tagsProp = new SimpleStringProperty("");
 		tagsList = new ArrayList<String>();
 		this.image = image;
-		photoProp = new SimpleObjectProperty<Image>(image);
 		this.photoDate = photoDate;
 		this.photoDateString = photoDateString;
 		
-	}
-	
-	public StringProperty captionProperty(){
-		return captionProp;
-	}
-	
-	public StringProperty tagsProperty(){
-		return tagsProp;
-	}
-	
-	public ObjectProperty<Image> photoProp(){
-		return photoProp;
 	}
 	
 	public String getCaption(){
@@ -63,8 +46,11 @@ public class Photo {
 	
 	public void setCaption(String caption){
 		this.caption = caption;
-		captionProp.set(caption);
 		captionLabel.setText(caption);
+	}
+	
+	public Label getCaptionLabel(){
+		return captionLabel;
 	}
 	
 	public List<String> getTags(){
@@ -95,10 +81,16 @@ public class Photo {
 		return photoDateString;
 	}
 	
-	
-	
 	public void setCaptionLabel(Label caption){
 		captionLabel = caption;
+	}
+	
+	public void setAlbum(String name){
+		album = name;
+	}
+	
+	public String getAlbum(){
+		return album;
 	}
 	
 	@Override

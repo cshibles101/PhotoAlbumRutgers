@@ -16,9 +16,6 @@ public class Album implements Serializable{
 	private static final long serialVersionUID = -5223084188453703541L;
 
 	private transient final StringProperty albumNameProp;
-	private transient final IntegerProperty photoCountProp;
-	
-	
 	
 	private String albumName;
 	private int photoCount;
@@ -33,7 +30,6 @@ public class Album implements Serializable{
 		this.albumName = name;
 		photoCount = 0;
 		albumNameProp = new SimpleStringProperty(name);
-		photoCountProp = new SimpleIntegerProperty(photoCount);
 		oldestPhoto = null;
 		newestPhoto = null;
 		
@@ -45,9 +41,6 @@ public class Album implements Serializable{
 		return albumNameProp;
 	}
 	
-	public IntegerProperty photoCountProperty(){
-		return photoCountProp;
-	}
 	
 	public String getName(){
 		return albumName;
@@ -93,6 +86,7 @@ public class Album implements Serializable{
 		photos.add(photo);
 		photoData.add(photo);
 		photoCount++;
+		photo.setAlbum(albumName);
 		
 		if(getNew() != null){
 			if(getNew().getDate().compareTo(photo.getDate()) <= 0){

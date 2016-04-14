@@ -535,11 +535,11 @@ public class AlbumController {
 			
 			searchRoot.setCenter(searchAnchor);
 			
+			Stage dialog = new Stage();
+			
 			SearchController searchController;
 			searchController = loader2.getController();
-			searchController.setMainApp(activeAlbum, activeUser, photoAlbum);
-	        
-	        Stage dialog = new Stage();
+			searchController.setMainApp(activeAlbum, activeUser, photoAlbum, dialog);
 	        
 	        dialog.setScene(search);
             dialog.setTitle("Search");
