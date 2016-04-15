@@ -1,7 +1,6 @@
 package photoAlbum.application;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import photoAlbum.model.Album;
+import photoAlbum.model.Photo;
 import photoAlbum.model.User;
 import photoAlbum.view.AdminController;
 import photoAlbum.view.LoginController;
@@ -33,14 +34,7 @@ public class PhotoAlbum extends Application{
 	
 	public PhotoAlbum(){
 		
-		userList.add(new User("Kevin", "tall"));
-		userList.add(new User("Bob", "short"));
-		userList.add(new User("Gru", "nose"));
-		userList.add(new User("Stuart", "eye"));
-		userList.add(new User("Dave", "small"));	
 		
-		for (User i : userList) 
-			 userData.add(i);
 		
 	}
 	
@@ -182,7 +176,70 @@ public class PhotoAlbum extends Application{
 	 }
 	 
 	 
+	 public void Serialize(){
+		 
+		 int count = userList.size();
+		 try
+	      {
+	         FileOutputStream fileOut =
+	         new FileOutputStream("persist.ser", false);
+	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	         out.writeInt(count);
+	         for(int x = 0; x < count; x++){
+	        	 out.writeObject(userList.get(x));
+	        	 out.writeInt(userList.get(x).getAlbums().size());
+	        	 int count2 = userList.get(x).getAlbums().size();
+	        	 for(int y = 0; y < count2; y++){
+	        		 out.writeInt(userList.get(x).getAlbums().get(y).getPhotoCount());
+	        	 }
+	         }        
+	         out.close();
+	         fileOut.close();
+	      }catch(IOException i)
+	      {
+	          i.printStackTrace();
+	      }
+		 
+		 
+	 }
 	 
+	 public void readBack(){
+		 
+		 try
+	      {
+	         FileInputStream fileIn = new FileInputStream("persist.ser");
+	         ObjectInputStream in = new ObjectInputStream(fileIn);
+	         int count = in.readInt(); 
+	         for(int x = 0; x < count; x++){
+	        	 try {
+					userList.add((User)in.readObject());
+					User temp = userList.get(x);
+					temp.setStringProp();
+					temp.updateAlbums(temp.getAlbums());
+					int count2 = in.readInt();
+					for(int y = 0; y < count2; y++){
+						Album tempAlbum = temp.getAlbums().get(y);
+						tempAlbum.setStringProp();
+						tempAlbum.updateAlbum(tempAlbum.getPhotos());
+						int count3 = in.readInt();
+						for(int z = 0; z < count3; z++){
+							Photo tempPhoto = tempAlbum.getPhotos().get(z);
+							tempPhoto.loadCaption();
+							tempPhoto.loadImage();
+						}
+					}
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+	        	 
+	        	 
+	         }
+	         in.close();
+	         fileIn.close();
+	      }catch(IOException i){
+	      }
+		 
+	 }
 	 
 	 
 	 public static void main(String[] args) throws IOException {

@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
@@ -67,8 +68,18 @@ public class AdminController {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Exit");
 		alert.setHeaderText("Are you sure you want to exit?");
+		alert.setContentText("Would you like to save your changes?");
+		ButtonType save = new ButtonType("Save");
+		ButtonType dontSave = new ButtonType("Don't Save");
+		ButtonType cancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		alert.getButtonTypes().setAll(save, dontSave, cancel);
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK){
+		if (result.get() == save){
+			photoAlbum.Serialize();
+			System.exit(1);
+		}
+		if (result.get() == cancel){}
+		else{
 			System.exit(1);
 		}
 		
@@ -78,9 +89,20 @@ public class AdminController {
 		
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Logout");
-		alert.setHeaderText("Are you sure you want to logout?");
+		alert.setHeaderText("Would you like to save your changes?");
+		ButtonType save = new ButtonType("Save");
+		ButtonType dontSave = new ButtonType("Don't Save");
+		ButtonType cancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		alert.getButtonTypes().setAll(save, dontSave, cancel);
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK){
+		if (result.get() == save){
+			photoAlbum.Serialize();
+			photoAlbum.getStage().setScene(photoAlbum.getScene("login"));
+			photoAlbum.getStage().setTitle("Photo Album Login");
+		}
+		if (result.get() == cancel)
+		{}
+		else{
 			photoAlbum.getStage().setScene(photoAlbum.getScene("login"));
 			photoAlbum.getStage().setTitle("Photo Album Login");
 		}

@@ -13,7 +13,7 @@ public class Album implements Serializable{
 	
 	private static final long serialVersionUID = -5223084188453703541L;
 
-	private transient final StringProperty albumNameProp;
+	private transient StringProperty albumNameProp;
 	
 	private String albumName;
 	private int photoCount;
@@ -37,6 +37,10 @@ public class Album implements Serializable{
 	
 	public StringProperty albumNameProperty(){
 		return albumNameProp;
+	}
+	
+	public void setStringProp(){
+		albumNameProp = new SimpleStringProperty(albumName);
 	}
 	
 	
@@ -146,6 +150,9 @@ public class Album implements Serializable{
 	}
 	
 	public void updateAlbum(List<Photo> photos){
+		if(photoData == null){
+			photoData = FXCollections.observableArrayList();
+		}
 		this.photos = photos;
 		photoData.clear();
 		for (Photo i : this.photos) 

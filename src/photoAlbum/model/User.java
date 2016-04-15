@@ -15,7 +15,7 @@ public class User implements Serializable{
 
 	private static final long serialVersionUID = 7911496313893371710L;
 	
-	private transient final StringProperty usernameProp;
+	private transient StringProperty usernameProp;
 	private transient ObservableList<Album> userAlbums = FXCollections.observableArrayList();
 	
 	
@@ -45,6 +45,9 @@ public class User implements Serializable{
 	
 	protected String getPassword(){
 		return password;
+	}
+	public void setStringProp(){
+		usernameProp = new SimpleStringProperty(username);
 	}
 
 
@@ -89,6 +92,9 @@ public class User implements Serializable{
 	}
 	
 	public void updateAlbums(List<Album> albums){
+		if(userAlbums == null){
+			userAlbums = FXCollections.observableArrayList();
+		}
 		this.albums = albums;
 		userAlbums.clear();
 		for (Album i : this.albums) 
@@ -126,5 +132,8 @@ public class User implements Serializable{
 	public void deleteDate(Calendar date){
 		
 	}
-
+	
+	public void resetAlbums(){
+		
+	}
 }

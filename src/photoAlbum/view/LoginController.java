@@ -120,8 +120,10 @@ public class LoginController {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Exit");
 		alert.setHeaderText("Are you sure you want to exit?");
+		alert.setContentText("All work done will be saved upon exit.");
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK){
+			photoAlbum.Serialize();
 			System.exit(1);
 		}
 		
@@ -129,8 +131,11 @@ public class LoginController {
 	
 	public void setMainApp(PhotoAlbum photoAlbum) {
 		
+		photoAlbum.readBack();
 		this.photoAlbum = photoAlbum;
 		userList = photoAlbum.getUsers();
+		photoAlbum.updateUsers(userList);
+		
 		
 	}
 }

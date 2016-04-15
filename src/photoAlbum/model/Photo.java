@@ -10,10 +10,6 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -24,7 +20,7 @@ public class Photo implements Serializable{
 
 	private transient Image image;
 	
-	private Label captionLabel;
+	private transient Label captionLabel;
 	
 	private String imgPath;
 	
@@ -57,6 +53,13 @@ public class Photo implements Serializable{
 	
 	public void setCaption(String caption){
 		this.caption = caption;
+		captionLabel.setText(caption);
+	}
+	
+	public void loadCaption(){
+		if(captionLabel == null){
+			captionLabel = new Label();
+		}
 		captionLabel.setText(caption);
 	}
 	
