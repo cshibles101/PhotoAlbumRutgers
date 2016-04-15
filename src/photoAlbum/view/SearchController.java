@@ -305,6 +305,8 @@ public class SearchController {
 	@FXML
 	public void handleCreate(Event e){
 		
+		int numberOfAlbums = activeUser.getAlbums().size();
+		
 		if(photoList.isEmpty()){
 			Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(photoAlbum.getStage());
@@ -340,8 +342,10 @@ public class SearchController {
 				exc.printStackTrace();
 			}
 			
-			for(Photo photo:photoList){
-				activeUser.getAlbums().get(activeUser.getAlbums().size()-1).addPhoto(photo);
+			if(numberOfAlbums != activeUser.getAlbums().size()){
+				for(Photo photo:photoList){
+					activeUser.getAlbums().get(activeUser.getAlbums().size()-1).addPhoto(photo);
+				}
 			}
 		}
 	}
