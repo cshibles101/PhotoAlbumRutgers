@@ -1,5 +1,10 @@
 package photoAlbum.view;
 
+/**
+ * @author Randy Mester
+ * @author Christopher Shibles
+ */
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -142,7 +147,13 @@ public class AlbumController {
             }
         }
     }
-	
+	/**
+	 * Closes the application, but first asks if the user would like to save, not save, or cancel
+	 * and keep it open.
+	 * 
+	 * @param e Event
+	 * @return void
+	 */
 	@FXML
 	private void handleExit(Event e){
 		
@@ -165,6 +176,14 @@ public class AlbumController {
 		}
 		
 	}
+	
+	/**
+	 * Closes the album view, but asks the user if they wish to save before doing so and returns the user
+	 * to the login interface.
+	 * 
+	 * @param e Event
+	 * @return void
+	 */
 	@FXML
 	private void handleLogout(Event e){
 		
@@ -188,6 +207,12 @@ public class AlbumController {
 		}
 		
 	}
+	/**
+	 * Closes the album and returns the user to the album list.
+	 * 
+	 * @param e Event
+	 * @return
+	 */
 	@FXML
 	private void handleCloseAlbum(Event e){
 		try{
@@ -217,7 +242,13 @@ public class AlbumController {
 		}
 		
 	}
-	
+	/**
+	 * Opens a FileChooser to pick photo files from the machine to add to the album. When a file is chosen,
+	 * opens the edit dialog to set details.
+	 * 
+	 * @param e Event
+	 * @return
+	 */
 	@FXML
 	public void handleAddPhoto(Event e){
 		Image image = null;
@@ -318,7 +349,13 @@ public class AlbumController {
 			}
 		 }
 	 }
-	
+	/**
+	 * Opens up an edit dialog box with fields to set a caption and tags for the photo or even change
+	 * the album the photo is in.
+	 * 
+	 * @param e Event
+	 * @return void
+	 */
 	@FXML
 	public void handleEditPhoto(Event e){
 		
@@ -408,7 +445,13 @@ public class AlbumController {
 		}
 		
 	}
-	
+	/**
+	 * Removes photo from the album by removing it from all lists associated with the album.
+	 * 
+	 * @param e Event
+	 * @throws InterruptedException
+	 * @return void
+	 */
 	@FXML
 	public void handleDeletePhoto(Event e) throws InterruptedException{
 		
@@ -468,7 +511,13 @@ public class AlbumController {
 		}
 		
 	}
-	
+	/**
+	 * When an item is selected off the thumbnails to the side, displays a larger image in the main view
+	 * and displays the image info below
+	 * 
+	 * @param photo
+	 * @return void
+	 */
 	public void displayImage(Photo photo){
 		if(thumbnails.getSelectionModel().getSelectedItem()==null)
 		{}else{
@@ -512,7 +561,13 @@ public class AlbumController {
 		
 		}
 	}
-	
+	/**
+	 * Changes the selected thumbnail to the one next on the list or if at the end, first on the list
+	 * or if the only one or no thumbnails, does nothing
+	 * 
+	 * @param e Event
+	 * @return void
+	 */
 	@FXML
 	public void handleNext(Event e){
 		if(!photoList.isEmpty()){
@@ -530,6 +585,13 @@ public class AlbumController {
 		}
 	}
 	
+	/**
+	 * Changes the selected thumbnail to the previous one on the list or if at the beginning, 
+	 * last on the list or if the only one or no thumbnails, does nothing
+	 * 
+	 * @param e Event
+	 * @return void
+	 */
 	@FXML
 	public void handleLast(Event e){
 		
@@ -549,7 +611,12 @@ public class AlbumController {
 		
 	}
 	
-	
+	/**
+	 * Opens a Search window, separate from the main application window where users can use search 
+	 * criteria to find specific photos based on tags or dates
+	 * 
+	 * @param e Event
+	 */
 	@FXML
 	public void handleOpenSearch(Event e){
 		
@@ -581,7 +648,14 @@ public class AlbumController {
 		}
 	}
 	
-	
+	/**
+	 * Connects the Album View and it's controller to the main application instance
+	 * 
+	 * @param user current user that owns the album showing
+	 * @param album current album that is showing
+	 * @param photoAlbum 
+	 * @param index index of selected item on album list
+	 */
 	public void setAlbum(User user, Album album, PhotoAlbum photoAlbum, int index) {
 		
 		this.index = index;
