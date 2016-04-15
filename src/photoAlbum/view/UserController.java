@@ -1,3 +1,7 @@
+/**
+ * @author Christopher Shibles
+ * @author Randy Mester
+ */
 package photoAlbum.view;
 
 import java.util.Comparator;
@@ -26,7 +30,10 @@ import javafx.stage.Stage;
 import photoAlbum.application.PhotoAlbum;
 import photoAlbum.model.Album;
 import photoAlbum.model.User;
-
+/**
+ * Controller that controls the album list window for a user
+ *
+ */
 public class UserController {
 
 	private PhotoAlbum photoAlbum;	
@@ -70,7 +77,9 @@ public class UserController {
 	public UserController(){
 		
 	}
-	
+	/**
+	 * Sets up album listview
+	 */
 	@FXML
 	private void initialize(){
 		albumColumn.setCellValueFactory(cellData -> cellData.getValue().albumNameProperty());
@@ -81,7 +90,10 @@ public class UserController {
 	            (observable, oldValue, newValue) -> showAlbumDetails(newValue));
 	}
 	
-	
+	/**
+	 * Sets labels in window to reflect album's information
+	 * @param album
+	 */
 	private void showAlbumDetails(Album album) {
 	    if (album != null) {
 	        albumName.setText(album.getName());
@@ -103,7 +115,12 @@ public class UserController {
 	    }
 	}
 
-	
+	/**
+	 * Asks if user wants to exit program.
+	 * Program closes if user clicks ok and returns
+	 * to album list window if user clicks cancel.
+	 * @param e
+	 */
 	@FXML
 	private void handleExit(Event e){
 		
@@ -116,6 +133,13 @@ public class UserController {
 		}
 		
 	}
+	/**
+	 * Asks if user wants to logout.
+	 * Returns to login window if user clicks ok
+	 * and returns to user's album list if user
+	 * clicks cancel.
+	 * @param e
+	 */
 	@FXML
 	private void handleLogout(Event e){
 		
@@ -129,6 +153,10 @@ public class UserController {
 		}
 		
 	}
+	/**
+	 * Opens NewAlbum window.
+	 * @param e
+	 */
 	@FXML
 	private void handleNewAlbum(Event e){
 		
@@ -170,6 +198,12 @@ public class UserController {
 		
 	}
 	
+	/**
+	 * Asks user if they want to delete a selected album.
+	 * If user clicks ok, album is delete. If user clicks
+	 * cancel, user returns to user album list.
+	 * @param e
+	 */
 	@FXML
 	private void handleDelete(Event e){
 		
@@ -228,7 +262,10 @@ public class UserController {
 			
 		}
 	}
-	
+	/**
+	 * Opens window to rename selected album
+	 * @param e
+	 */
 	@FXML
 	public void handleRename(Event e){
 			
@@ -289,7 +326,10 @@ public class UserController {
 	}
 			
 	
-	
+	/**
+	 * Opens selected album in album window.
+	 * @param e
+	 */
 	@FXML
 	public void handleOpen(Event e){
 		
@@ -364,7 +404,12 @@ public class UserController {
 	    	activeUser.getObservableList().sort(c);
 	    }
 	*/
-	
+	/**
+	 * Sets user to active user and album list to user's albums
+	 * @param photoAlbum
+	 * @param username
+	 * @param index
+	 */
 	public void setMainApp(PhotoAlbum photoAlbum, User username, int index) {
 		
 		this.photoAlbum = photoAlbum;

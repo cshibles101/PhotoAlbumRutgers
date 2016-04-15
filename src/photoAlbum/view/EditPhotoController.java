@@ -1,3 +1,7 @@
+/**
+ * @author Christopher Shibles
+ * @author Randy Mester
+ */
 package photoAlbum.view;
 
 import javafx.event.Event;
@@ -13,7 +17,10 @@ import photoAlbum.model.Album;
 import photoAlbum.model.Photo;
 import photoAlbum.model.Tag;
 import photoAlbum.model.User;
-
+/**
+ * Controller for photo editing window
+ *
+ */
 public class EditPhotoController {
 	
 	private Photo photo;
@@ -46,13 +53,20 @@ public class EditPhotoController {
 	private Label limits;
 	
 	
-	
+	/**
+	 * Initializer
+	 */
 	@FXML
 	public void initialize(){
 		
 	}
 	
-	
+	/**
+	 * Sets designated caption and tags to selected photo.
+	 * If selected album is different than photo's album,
+	 * photo moves to new album.
+	 * @param e
+	 */
 	@FXML
 	public void handleOk(Event e){
 		limits.setVisible(false);
@@ -109,14 +123,25 @@ public class EditPhotoController {
 			
 	}
 	
-	
+	/**
+	 * Returns to album window
+	 * @param e
+	 */
 	@FXML
 	public void handleCancel(Event e){
 		Stage stage = (Stage) cancelBtn.getScene().getWindow();
 		stage.close();
 	}
 	
-	
+	/**
+	 * Sets selected photo, active user, active album, and index
+	 * of photo in album's list of photos
+	 * @param photo
+	 * @param activeAlbum
+	 * @param activeUser
+	 * @param photoAlbum
+	 * @param photoIndex
+	 */
 	public void setMainApp(Photo photo, Album activeAlbum, User activeUser, PhotoAlbum photoAlbum, int photoIndex){
 		this.photo = photo;
 		this.activeAlbum = activeAlbum;

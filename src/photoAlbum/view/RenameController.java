@@ -1,3 +1,7 @@
+/**
+ * @author Christopher Shibles
+ * @author Randy Mester
+ */
 package photoAlbum.view;
 
 import java.util.List;
@@ -11,7 +15,10 @@ import javafx.stage.Stage;
 import photoAlbum.application.PhotoAlbum;
 import photoAlbum.model.Album;
 import photoAlbum.model.User;
-
+/**
+ * Controls the album renaming window
+ *
+ */
 public class RenameController {
 	
 	private PhotoAlbum photoAlbum;
@@ -33,11 +40,16 @@ public class RenameController {
 	@FXML
 	private Label valid;
 	
-	
+	/**
+	 * Constructor for controller
+	 */
 	public RenameController(){
 		
 	}
-	
+	/**
+	 * Changes album name
+	 * @param e
+	 */
 	@FXML
 	private void handleChange(Event e){
 		
@@ -93,7 +105,10 @@ public class RenameController {
 		
 	}
 	
-	
+	/**
+	 * Cancels album name change
+	 * @param e
+	 */
 	@FXML
 	private void handleCancel(Event e){
 		Stage stage;
@@ -102,7 +117,12 @@ public class RenameController {
 		stage = (Stage) cancel.getScene().getWindow();
 		stage.close();
 	}
-	
+	/**
+	 * Sets selected album
+	 * @param user
+	 * @param name
+	 * @param photoAlbum
+	 */
 	public void setAlbum(User user, Album name, PhotoAlbum photoAlbum) {
 		
 		this.photoAlbum = photoAlbum;

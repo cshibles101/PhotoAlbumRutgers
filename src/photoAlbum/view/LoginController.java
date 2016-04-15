@@ -1,3 +1,7 @@
+/**
+ * @author Christopher Shibles
+ * @author Randy Mester
+ */
 package photoAlbum.view;
 
 
@@ -22,7 +26,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import photoAlbum.application.PhotoAlbum;
 import photoAlbum.model.User;
-
+/**
+ * Controller for login window
+ *
+ */
 public class LoginController {
 	
 	private PhotoAlbum photoAlbum;
@@ -42,12 +49,18 @@ public class LoginController {
 	public LoginController(){
 		
 	}
-	
+	/**
+	 * Initializer
+	 */
 	@FXML
 	private void initialize(){
 		
 	}
-	
+	/**
+	 * Checks if username and password match. If they do, user is 
+	 * taken to their list of albums.
+	 * @param e
+	 */
 	@FXML
 	private void handleLogin(Event e){
 		loginLabel.setVisible(false);
@@ -112,7 +125,9 @@ public class LoginController {
 				usernameField.requestFocus();
 			}
 		}
-		
+	/**
+	 * Exits program	
+	 */
 	}
 	@FXML
 	private void handleExit(Event e){
@@ -126,7 +141,10 @@ public class LoginController {
 		}
 		
 	}
-	
+	/**
+	 * Sets user list
+	 * @param photoAlbum
+	 */
 	public void setMainApp(PhotoAlbum photoAlbum) {
 		
 		this.photoAlbum = photoAlbum;

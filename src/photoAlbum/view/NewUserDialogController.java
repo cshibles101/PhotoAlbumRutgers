@@ -1,3 +1,7 @@
+/**
+ * @author Christopher Shibles
+ * @author Randy Mester
+ */
 package photoAlbum.view;
 
 import java.util.List;
@@ -11,7 +15,10 @@ import javafx.stage.Stage;
 import photoAlbum.application.PhotoAlbum;
 import photoAlbum.model.Album;
 import photoAlbum.model.User;
-
+/**
+ * Controller for new user dialog from admin
+ *
+ */
 public class NewUserDialogController {
 	
 	private PhotoAlbum photoAlbum;
@@ -38,11 +45,15 @@ public class NewUserDialogController {
 	
 	//New Album
 
-	
+	/**
+	 * Controller constructor
+	 */
 	public NewUserDialogController(){
 		
 	}
-	
+	/**
+	 * Initializer
+	 */
 	@FXML
 	public void initialize(){
 		
@@ -50,7 +61,10 @@ public class NewUserDialogController {
 	
 	
 	
-	
+	/**
+	 * Adds user and password pairing to list of users
+	 * @param e
+	 */
 	@FXML
 	private void handleAdd(Event e){
 		
@@ -101,6 +115,10 @@ public class NewUserDialogController {
 			other.setVisible(true);
 		}
 	}
+	/**
+	 * Cancels creation of new user
+	 * @param e
+	 */
 	@FXML
 	private void handleCancel(Event e){
 		Stage stage;
@@ -120,7 +138,10 @@ public class NewUserDialogController {
 	}
 	
 	
-	
+	/**
+	 * Sets list of current users
+	 * @param photoAlbum
+	 */
 	public void setMainApp(PhotoAlbum photoAlbum) {
 		
 		this.photoAlbum = photoAlbum;

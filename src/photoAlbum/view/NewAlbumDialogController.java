@@ -1,3 +1,7 @@
+/**
+ * @author Christopher Shibles
+ * @author Randy Mester
+ */
 package photoAlbum.view;
 
 import java.util.List;
@@ -11,7 +15,10 @@ import javafx.stage.Stage;
 import photoAlbum.application.PhotoAlbum;
 import photoAlbum.model.Album;
 import photoAlbum.model.User;
-
+/**
+ * Controller for new album window
+ *
+ */
 public class NewAlbumDialogController {
 	
 	private PhotoAlbum photoAlbum;
@@ -28,7 +35,10 @@ public class NewAlbumDialogController {
 	private Button newAlbumAdd;
 	@FXML
 	private Button newAlbumCancel;
-	
+	/**
+	 * Creates new album
+	 * @param e
+	 */
 	@FXML
 	public void handleNewAlbum(Event e){
 		
@@ -70,7 +80,10 @@ public class NewAlbumDialogController {
 		
 		
 	}
-	
+	/**
+	 * Closes new album window and returns to previous window
+	 * @param e
+	 */
 	@FXML
 	public void handleCancel(Event e){
 		

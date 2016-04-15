@@ -1,3 +1,7 @@
+/**
+ * @author Christopher Shibles
+ * @author Randy Mester
+ */
 package photoAlbum.view;
 
 import java.util.Comparator;
@@ -26,7 +30,10 @@ import javafx.stage.Stage;
 import photoAlbum.application.PhotoAlbum;
 import photoAlbum.model.Album;
 import photoAlbum.model.User;
-
+/**
+ * Controller for admin window
+ *
+ */
 public class AdminController {
 	
 	private PhotoAlbum photoAlbum;	
@@ -51,16 +58,23 @@ public class AdminController {
     private List<User> userList;
 	
 	
-	
+	/**
+	 * Constructor
+	 */
 	public AdminController(){
 		
 	}
-	
+	/**
+	 * Initializer
+	 */
 	@FXML
 	private void initialize(){
 		userColumn.setCellValueFactory(cellData -> cellData.getValue().usernameProperty());
 	}
-	
+	/**
+	 * Closes program
+	 * @param e
+	 */
 	@FXML
 	private void handleExit(Event e){
 		
@@ -72,7 +86,9 @@ public class AdminController {
 			photoAlbum.Serialize();
 			System.exit(1);
 		}
-		
+	/**
+	 * Logs admin out and returns to login screen	
+	 */
 	}
 	@FXML
 	private void handleLogout(Event e){
@@ -87,7 +103,10 @@ public class AdminController {
 		}
 		
 	}
-	
+	/**
+	 * Deletes user from user list
+	 * @param e
+	 */
 	@FXML
 	private void handleDelete(Event e){
 		
@@ -138,7 +157,10 @@ public class AdminController {
             alert.showAndWait();
 		}
 	}
-	
+	/**
+	 * Adds new user and associated password to userlist
+	 * @param e
+	 */
 	@FXML
 	private void handleNew(Event e){
 		
@@ -162,7 +184,9 @@ public class AdminController {
 		}
 		
 	}
-	
+	/**
+	 * Sorts user list
+	 */
 	public void sortUserList()
     {
     	Comparator<User> c = (s1, s2) -> s1.getUsername().compareToIgnoreCase(s2.getUsername());
@@ -170,7 +194,10 @@ public class AdminController {
     	photoAlbum.getObservableList().sort(c);
     }
 	
-	
+	/**
+	 * Sets user list in window
+	 * @param photoAlbum
+	 */
 	public void setMainApp(PhotoAlbum photoAlbum) {
 		
 		this.photoAlbum = photoAlbum;

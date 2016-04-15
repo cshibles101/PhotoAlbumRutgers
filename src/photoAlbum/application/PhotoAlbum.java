@@ -1,3 +1,7 @@
+/**
+ * @author Christopher Shibles
+ * @author Randy Mester
+ */
 package photoAlbum.application;
 
 import java.io.FileInputStream;
@@ -20,7 +24,11 @@ import photoAlbum.model.User;
 import photoAlbum.view.AdminController;
 import photoAlbum.view.LoginController;
 import photoAlbum.view.NewUserDialogController;
-
+/**
+ * This class implements a photo album.
+ * 
+ *
+ */
 public class PhotoAlbum extends Application{
 
 	static Stage mainStage;
@@ -30,7 +38,9 @@ public class PhotoAlbum extends Application{
 	
 	private List<User> userList = new ArrayList<User>();
 	private ObservableList<User> userData = FXCollections.observableArrayList();
-	
+	/**
+	 * Initializes an instance of photo album with example users and previously saved users.
+	 */
 	public PhotoAlbum(){
 		
 		userList.add(new User("Kevin", "tall"));
@@ -44,7 +54,9 @@ public class PhotoAlbum extends Application{
 		
 	}
 	
-	
+	/**
+	 * Starts photo album program and sets up login window.
+	 */
 	public void start(Stage mainStage) throws Exception {
 		this.mainStage = mainStage;
 		this.mainStage.setTitle("Photo Album Login");
@@ -61,7 +73,10 @@ public class PhotoAlbum extends Application{
 		
 		
 	}
-	
+	/**
+	 * Sets up window pane and loads login, admin, and newUser root.
+	 * Sets scene.
+	 */
 	public void initRootLayout(){
 		try{
 			FXMLLoader loader = new FXMLLoader();
@@ -97,7 +112,10 @@ public class PhotoAlbum extends Application{
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Opens login window and sets login controller.
+	 * Loads anchor panes for login, admin, and newUser.
+	 */
 	 public void showLogin() {
 		 try {
 
@@ -149,11 +167,19 @@ public class PhotoAlbum extends Application{
 	        
 	        
 	 }
-	 
+	 /**
+	  * Refers to mainStage
+	  * @return mainStage
+	  */
 	 public Stage getStage(){
 		 return mainStage;
 	 }
-	 
+	 /**
+	  * Refers to login if scene is set to login
+	  * and admin if scene is set to admin.
+	  * @param scene
+	  * @return newUser
+	  */
 	 public Scene getScene(String scene){
 		 
 		 if(scene.equalsIgnoreCase("login"))
@@ -164,14 +190,24 @@ public class PhotoAlbum extends Application{
 					
 		 
 	 }
-	 
+	 /**
+	  * Refers to list of all users.
+	  * @return list of all users
+	  */
 	 public List<User> getUsers(){
 		 return userList;
 	 }
+	 /**
+	  * Refers to observableList of all users.
+	  * @return userList in observable list form
+	  */
 	 public ObservableList<User> getObservableList(){
 		 return userData;		 
 	 }
-	 
+	 /**
+	  * Clears user observable list and resets it based on user list.
+	  * @param users
+	  */
 	 public void updateUsers(List<User> users){
 		 
 		 userList = users;
@@ -190,7 +226,11 @@ public class PhotoAlbum extends Application{
 	 }
 	 
 	 
-	 
+	 /**
+	  * Main
+	  * @param args
+	  * @throws IOException
+	  */
 	 public static void main(String[] args) throws IOException {
 		 	
 		

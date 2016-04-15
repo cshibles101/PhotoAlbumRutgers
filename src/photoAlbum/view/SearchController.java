@@ -1,3 +1,7 @@
+/**
+ * @author Christopher Shibles
+ * @author Randy Mester
+ */
 package photoAlbum.view;
 
 import java.time.ZoneId;
@@ -36,7 +40,10 @@ import photoAlbum.model.Album;
 import photoAlbum.model.Photo;
 import photoAlbum.model.Tag;
 import photoAlbum.model.User;
-
+/**
+ * Controller for photo search window
+ *
+ */
 public class SearchController {
 	
 	private Album activeAlbum;
@@ -91,7 +98,9 @@ public class SearchController {
     private ListView<Photo> thumbnails;
 	
 	
-
+	/**
+	 * Sets up list of photo thumbnails
+	 */
 	@FXML
 	public void initialize(){
 		
@@ -99,7 +108,10 @@ public class SearchController {
 	            (observable, oldValue, newValue) -> displayImage(newValue));
 		
 	}
-	
+	/**
+	 * Displays selected photo in main view
+	 * @param photo
+	 */
 	public void displayImage(Photo photo){
 		if(thumbnails.getSelectionModel().getSelectedItem()==null)
 		{}else{
@@ -144,7 +156,10 @@ public class SearchController {
 		
 		}
 	}
-	
+	/**
+	 * Sets up cell of list cell factory
+	 *
+	 */
 	static class newPhotoCell extends ListCell<Photo> {
         @Override
         public void updateItem(Photo item, boolean empty) {
@@ -178,7 +193,14 @@ public class SearchController {
             }
         }
     }
-	
+	/**
+	 * Checks if date search or tag search are selected,
+	 * then performs allotted search. Tag search looks
+	 * through photos with specified tag. Date search 
+	 * looks through photos from between the two allotted
+	 * dates.
+	 * @param e
+	 */
 	@FXML
 	public void handleSearch(Event e){
 		
@@ -301,7 +323,11 @@ public class SearchController {
 		
 	}
 	
-	
+	/**
+	 * Opens a create new album window that creates
+	 * a new album out of all photos in search list.
+	 * @param e
+	 */
 	@FXML
 	public void handleCreate(Event e){
 		
@@ -350,7 +376,10 @@ public class SearchController {
 		}
 	}
 	
-	
+	/**
+	 * Closes search window and returns to album window
+	 * @param e
+	 */
 	@FXML
 	public void handleClose(Event e){
 		
@@ -364,7 +393,10 @@ public class SearchController {
 			stage.close();
 		}
 	}
-	
+	/**
+	 * Selects next photo in list of photos
+	 * @param e
+	 */
 	@FXML
 	public void handleNext(Event e){
 		if(!photoList.isEmpty()){
@@ -381,7 +413,10 @@ public class SearchController {
 			}
 		}
 	}
-	
+	/**
+	 * Selects previous photo in list of photos
+	 * @param e
+	 */
 	@FXML
 	public void handleLast(Event e){
 		
@@ -401,7 +436,13 @@ public class SearchController {
 		
 	}
 	
-	
+	/**
+	 * Sets the active album and user and well as main view
+	 * @param activeAlbum
+	 * @param activeUser
+	 * @param photoAlbum
+	 * @param stage
+	 */
 	public void setMainApp(Album activeAlbum, User activeUser, PhotoAlbum photoAlbum, Stage stage){
 		
 		this.activeAlbum = activeAlbum;
