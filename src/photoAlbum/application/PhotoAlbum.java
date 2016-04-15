@@ -1,23 +1,21 @@
 package photoAlbum.application;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
-import photoAlbum.model.Photo;
 import photoAlbum.model.User;
 import photoAlbum.view.AdminController;
 import photoAlbum.view.LoginController;
@@ -52,9 +50,13 @@ public class PhotoAlbum extends Application{
 		this.mainStage.setTitle("Photo Album Login");
 		this.mainStage.setResizable(false);
 		
+		
+		
 		initRootLayout();
 		
 		showLogin();
+		
+		
 		
 		
 		
@@ -180,11 +182,24 @@ public class PhotoAlbum extends Application{
 	 }
 	 
 	 
+	 public void Serialize(){
+		 
+		 
+		 
+		 
+	 }
+	 
+	 
 	 
 	 public static void main(String[] args) throws IOException {
-			launch(args);
-		}
-	 
+		 	
+		
+		 
+		 
+		launch(args);
+			
+	}
+	
 	
 	
 	

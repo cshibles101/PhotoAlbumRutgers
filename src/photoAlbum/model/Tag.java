@@ -1,9 +1,12 @@
 package photoAlbum.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tag {
+public class Tag implements Serializable{
+
+	private static final long serialVersionUID = 2049901245790788187L;
 
 	private String tag;
 	private List<Photo> photos = new ArrayList<Photo>();
