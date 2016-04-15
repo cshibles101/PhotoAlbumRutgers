@@ -1,6 +1,7 @@
 package photoAlbum.view;
 
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 
@@ -234,12 +235,22 @@ public class SearchController {
 				Date firstDate = Date.from(fromDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 				Date secondDate = Date.from(toDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(Date.from(toDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				cal.set(Calendar.HOUR_OF_DAY,23);
+				cal.set(Calendar.MINUTE,59);
+				cal.set(Calendar.SECOND,59);
+				cal.set(Calendar.MILLISECOND,999);
+
+				secondDate = cal.getTime();
+				
 				if(fromDate.getValue() != null && toDate.getValue() != null){
-					photoList.clear();
+					photoList.clear();					
 					
 					for(Album album:activeUser.getAlbums()){
 						for(Photo photo:album.getPhotos()){
 							Date photoDate = photo.getDate().getTime();
+							
 							if(photoDate.compareTo(firstDate) > 0 && photoDate.compareTo(secondDate) < 0){
 								photoList.add(photo);
 							}
