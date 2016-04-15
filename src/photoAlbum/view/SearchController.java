@@ -138,7 +138,7 @@ public class SearchController {
 		captionLabel.setText(photo.getCaption());
 		dateLabel.setText(photo.getDateString());
 		dateLabel.setAlignment(Pos.CENTER);
-		albumLabel.setText(photo.getAlbum());
+		albumLabel.setText("Album: "+photo.getAlbum());
 		
 		}
 	}
@@ -153,7 +153,6 @@ public class SearchController {
             	ImageView view = new ImageView(item.getImage());
             	view.setPreserveRatio(true);
             	double picW = item.getImage().getWidth(), picH = item.getImage().getHeight();
-            	double ratio = 0;
             	if(picW > picH){
             		width = 50;
             	}

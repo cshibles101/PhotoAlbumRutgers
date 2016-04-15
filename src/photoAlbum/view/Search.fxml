@@ -54,7 +54,7 @@
                                     <Font name="System Italic" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="dateLabel" layoutX="262.0" layoutY="36.0" text="Date" />
+                              <Label fx:id="dateLabel" alignment="CENTER" layoutX="235.0" layoutY="36.0" prefHeight="17.0" prefWidth="78.0" text="Date" />
                               <Label fx:id="tagsLabel" layoutX="444.0" layoutY="36.0" text="Tags" />
                               <Button fx:id="lastBtn" layoutY="64.0" mnemonicParsing="false" onAction="#handleLast" prefWidth="41.0" text="Last" />
                               <Button fx:id="nextBtn" layoutX="508.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleNext" text="Next" />

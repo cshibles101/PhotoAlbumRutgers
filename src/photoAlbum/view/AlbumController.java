@@ -118,7 +118,6 @@ public class AlbumController {
             	ImageView view = new ImageView(item.getImage());
             	view.setPreserveRatio(true);
             	double picW = item.getImage().getWidth(), picH = item.getImage().getHeight();
-            	double ratio = 0;
             	if(picW > picH){
             		width = 50;
             	}

@@ -177,30 +177,37 @@ public class UserController {
 		List<Album> list = activeUser.getAlbums();
 		
 		if(selectedIndex > -1){
-			for(int x = 0; x < list.size(); x++){
-				if(list.get(x).equals(albumTable.getItems().get(selectedIndex))){
-					list.remove(x);
-					
-					break;
+			Alert delete = new Alert(AlertType.CONFIRMATION);
+			delete.setTitle("Delete");
+			delete.setHeaderText("Are you sure you want to delete this album?");
+			delete.setContentText("Album to be deleted: "+list.get(selectedIndex).getName());
+			Optional<ButtonType> result = delete.showAndWait();
+			if(result.get() == ButtonType.OK){
+				for(int x = 0; x < list.size(); x++){
+					if(list.get(x).equals(albumTable.getItems().get(selectedIndex))){
+						list.remove(x);
+						
+						break;
+					}
 				}
-			}
+				
+				albumTable.getItems().remove(selectedIndex);
+				
 			
-			albumTable.getItems().remove(selectedIndex);
-			
-		
-			activeUser.updateAlbums(list);
-			if(list.size() > 0){
-				if(selectedIndex < list.size()){
-					albumTable.requestFocus();
-					albumTable.getSelectionModel().select(selectedIndex);
-					albumTable.getFocusModel().focus(selectedIndex);
-					showAlbumDetails(albumTable.getItems().get(selectedIndex));
-				}
-				else{
-					albumTable.requestFocus();
-					albumTable.getSelectionModel().select(selectedIndex-1);
-					albumTable.getFocusModel().focus(selectedIndex-1);
-					showAlbumDetails(albumTable.getItems().get(selectedIndex-1));
+				activeUser.updateAlbums(list);
+				if(list.size() > 0){
+					if(selectedIndex < list.size()){
+						albumTable.requestFocus();
+						albumTable.getSelectionModel().select(selectedIndex);
+						albumTable.getFocusModel().focus(selectedIndex);
+						showAlbumDetails(albumTable.getItems().get(selectedIndex));
+					}
+					else{
+						albumTable.requestFocus();
+						albumTable.getSelectionModel().select(selectedIndex-1);
+						albumTable.getFocusModel().focus(selectedIndex-1);
+						showAlbumDetails(albumTable.getItems().get(selectedIndex-1));
+					}
 				}
 			}
 		}
