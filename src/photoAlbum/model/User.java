@@ -19,8 +19,8 @@ public class User implements Serializable{
 	private transient ObservableList<Album> userAlbums = FXCollections.observableArrayList();
 	
 	
-	private final String username;
-	private final String password;
+	private String username;
+	private String password;
 	private List<Album> albums = new ArrayList<Album>();
 	private List<Tag> tagList = new ArrayList<Tag>();
 	private HashMap<String, Tag> tags = new HashMap<String, Tag>();

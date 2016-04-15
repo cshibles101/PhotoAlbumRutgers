@@ -69,7 +69,6 @@ public class AdminController {
 		alert.setHeaderText("Are you sure you want to exit?");
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK){
-			photoAlbum.Serialize();
 			System.exit(1);
 		}
 		

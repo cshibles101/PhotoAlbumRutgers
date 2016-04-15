@@ -20,7 +20,7 @@ public class Album implements Serializable{
 	private Photo oldestPhoto;
 	private Photo newestPhoto;
 	private List<Photo> photos = new ArrayList<Photo>();
-	private ObservableList<Photo> photoData = FXCollections.observableArrayList();
+	private transient ObservableList<Photo> photoData = FXCollections.observableArrayList();
 	
 	
 	public Album(String name){
@@ -151,6 +151,12 @@ public class Album implements Serializable{
 		for (Photo i : this.photos) 
 			 photoData.add(i);
 		
+	}
+	
+	public void loadImages(){
+		for(Photo photo: photos){
+			photo.loadImage();
+		}
 	}
 
 }

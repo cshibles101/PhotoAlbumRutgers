@@ -182,12 +182,6 @@ public class PhotoAlbum extends Application{
 	 }
 	 
 	 
-	 public void Serialize(){
-		 
-		 
-		 
-		 
-	 }
 	 
 	 
 	 
