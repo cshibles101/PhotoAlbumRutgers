@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photoAlbum.view.AdminController">
    <children>
-      <MenuBar fx:id="menuBar" layoutY="2.0" prefHeight="25.0" prefWidth="400.0">
+      <MenuBar fx:id="menuBar" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="400.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -23,18 +23,18 @@
           </Menu>
         </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.6" layoutY="25.0" maxHeight="275.0" maxWidth="400.0" minHeight="240.0" minWidth="400.0" prefHeight="275.0" prefWidth="400.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
+      <SplitPane dividerPositions="0.6" layoutY="25.0" maxHeight="265.0" maxWidth="390.0" minHeight="265.0" minWidth="390.0" prefHeight="265.0" prefWidth="390.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="263.0" prefWidth="230.0">
                <children>
                   <TableView fx:id="userTable" layoutX="15.0" layoutY="14.0" prefHeight="263.0" prefWidth="230.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="userColumn" prefWidth="229.0" resizable="false" text="Users" />
+                      <TableColumn fx:id="userColumn" maxWidth="229.0" prefWidth="229.0" resizable="false" text="Users" />
                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="114.0" prefWidth="276.0">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="263.0" prefWidth="152.0">
                <children>
                   <Button fx:id="delete" layoutX="37.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleDelete" text="Delete User" />
                   <Label layoutX="51.0" layoutY="8.0" prefHeight="34.0" prefWidth="51.0" text="Admin Controls" textAlignment="CENTER" textFill="#050505" wrapText="true">

@@ -247,7 +247,7 @@ public class AlbumController {
 	 * opens the edit dialog to set details.
 	 * 
 	 * @param e Event
-	 * @return
+	 * @return void
 	 */
 	@FXML
 	public void handleAddPhoto(Event e){

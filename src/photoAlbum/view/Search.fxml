@@ -17,7 +17,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photoAlbum.view.SearchController">
    <children>
-      <MenuBar fx:id="menuBar" layoutY="2.0" prefWidth="750.0">
+      <MenuBar fx:id="menuBar" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="750.0">
         <menus>
           <Menu fx:id="file" mnemonicParsing="false" text="File">
             <items>
@@ -67,7 +67,7 @@
             </AnchorPane>
           <AnchorPane maxHeight="463.0" maxWidth="181.0" minHeight="463.0" minWidth="181.0" prefHeight="463.0" prefWidth="181.0">
                <children>
-                  <SplitPane dividerPositions="0.5" layoutX="6.0" layoutY="273.0" orientation="VERTICAL" prefHeight="473.0" prefWidth="171.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.5" layoutX="6.0" layoutY="273.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="463.0" prefWidth="181.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                         <AnchorPane maxHeight="228.0" maxWidth="179.0" minHeight="228.0" minWidth="179.0" prefHeight="228.0" prefWidth="179.0" SplitPane.resizableWithParent="false">
                            <children>
