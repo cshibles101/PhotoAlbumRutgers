@@ -1,6 +1,7 @@
 package photoAlbum.view;
 
-import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Optional;
 
 import javafx.collections.FXCollections;
@@ -230,15 +231,39 @@ public class SearchController {
 		else{
 			if((fromDate.getValue() != null && toDate.getValue() != null) 
 					&& fromDate.getValue().compareTo(toDate.getValue()) < 1){
-				LocalDate firstDate,secondDate;
+				Date firstDate = Date.from(fromDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+				Date secondDate = Date.from(toDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 				
 				if(fromDate.getValue() != null && toDate.getValue() != null){
 					photoList.clear();
 					
+					for(Album album:activeUser.getAlbums()){
+						for(Photo photo:album.getPhotos()){
+							Date photoDate = photo.getDate().getTime();
+							if(photoDate.compareTo(firstDate) > 0 && photoDate.compareTo(secondDate) < 0){
+								photoList.add(photo);
+							}
+						}
+					}
 					
+					thumbnails.setItems(photoList);
+					thumbnails.setCellFactory(new Callback<ListView<Photo>, 
+				            ListCell<Photo>>() {
+				                @Override 
+				                public ListCell<Photo> call(ListView<Photo> list) {
+				                    return new newPhotoCell();
+				                }
+				            }
+				        );
+					
+					thumbnails.requestFocus();
+					thumbnails.getSelectionModel().selectFirst();
+					thumbnails.getFocusModel().focus(0);
+					noImages.setVisible(false);
 					
 				}
-				
+			
+			
 				
 				
 			}
