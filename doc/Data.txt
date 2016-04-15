@@ -1,0 +1,46 @@
+Login:
+Username	Password
+Admin		Password		(hard coded in, not a User instance)
+Users
+Buffy		slayer
+Willow		witch
+Xander		zeppo
+Giles		watcher
+Spike		bloody
+
+
+User Albums and Photos
+Buffy
+	Albums
+		Animal: 5 photos
+			Caption							Date							Tags
+Photo1		Sonny as a puppy				12/24/2006						dog, puppy, couch
+Photo2		My Box!							12/06/2014						monkey, zoo
+Photo3		He looks so sad.				08/21/2014						puppy, dog, sad
+Photo4		Sonny on the bed				07/28/2014						puppy, dog, pillow
+Photo5		My first friend!				12/06/2014						squirrel, Rutgers
+			
+		New York: 3 photos
+			Caption							Date							Tags
+Photo1		Mini Cooper Dealership			10/10/2014						New_York, cars
+Photo2		Great View						10/10/2014						New_York
+Photo3		Terminal 5						10/10/2014						New_York
+
+Willow
+	Albums
+		Concerts: 3 photos
+			Caption							Date							Tags
+Photo1		The guard looks so happy.		11/06/2015						New_York, concert, Mandy
+Photo2		Mandy							11/06/2015						New_York, Mandy, concert	
+Photo3		Lzzy Hale						12/02/2014						Lzzy, Halestorm, concert, New Jersey
+		
+Xander
+	Albums
+		Funny: 1 photo
+			Caption							Date							Tags
+Photo1		PhotoShop is funny!				12/14/2015						Six_Flags, Bizzaro
+
+Giles
+	No Albums
+Spike
+	No Albums
