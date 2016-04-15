@@ -208,10 +208,8 @@ public class AlbumController {
 		         new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
 		 File selectedFile = fileChooser.showOpenDialog(photoAlbum.getStage());
 		 
-		 
-
-
 		 if(selectedFile != null){
+
 			 try {
 				 BufferedImage bufferedImage = ImageIO.read(selectedFile);
 				 image = SwingFXUtils.toFXImage(bufferedImage, null);
@@ -227,6 +225,8 @@ public class AlbumController {
 			 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 			 
 			 Photo addedPhoto = new Photo(image, temp, sdf.format(temp.getTime()));
+			 
+			 addedPhoto.setPath(selectedFile.getAbsolutePath());
 			 
 			 activeAlbum.addPhoto(addedPhoto);
 			 

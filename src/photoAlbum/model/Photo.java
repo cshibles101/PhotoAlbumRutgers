@@ -1,5 +1,6 @@
 package photoAlbum.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -11,11 +12,15 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
-public class Photo {
+public class Photo implements Serializable{
+	
+	private static final long serialVersionUID = -5678015363905864572L;
+
+	private transient Image image;
 	
 	private Label captionLabel;
-
-	private Image image;
+	
+	private String imgPath;
 	
 	private String caption;
 	
@@ -92,6 +97,14 @@ public class Photo {
 	
 	public String getAlbum(){
 		return album;
+	}
+	
+	public void setPath(String path){
+		imgPath = path;
+	}
+	
+	public String getPath(){
+		return imgPath;
 	}
 	
 	@Override
