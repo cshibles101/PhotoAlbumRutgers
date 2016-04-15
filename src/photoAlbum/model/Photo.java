@@ -4,15 +4,17 @@
  */
 package photoAlbum.model;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 /**
@@ -26,7 +28,7 @@ public class Photo implements Serializable{
 
 	private transient Image image;
 	
-	private Label captionLabel;
+	private transient Label captionLabel;
 	
 	private String imgPath;
 	
@@ -72,10 +74,21 @@ public class Photo implements Serializable{
 		this.caption = caption;
 		captionLabel.setText(caption);
 	}
+
 	/**
-	 * Refers to photo's caption label
-	 * @return photo's caption label
+	 * Sets caption label to caption
 	 */
+	public void loadCaption(){
+		if(captionLabel == null){
+			captionLabel = new Label();
+		}
+		captionLabel.setText(caption);
+	}
+	
+/**
+ * Refers to photo's caption label
+ * @return photo's caption label
+ */
 	public Label getCaptionLabel(){
 		return captionLabel;
 	}
@@ -164,6 +177,20 @@ public class Photo implements Serializable{
 	public String getPath(){
 		return imgPath;
 	}
+
+	/**
+	 * Loads image from file path
+	 */
+	public void loadImage(){
+		 try {
+			 File file = new File(imgPath);
+			 BufferedImage bufferedImage = ImageIO.read(file);
+			 image = SwingFXUtils.toFXImage(bufferedImage, null);
+			} catch (IOException ex) {
+			    ex.printStackTrace();
+			}
+	}
+
 	/**
 	 * Returns photo's caption and list of tags in string form
 	 */

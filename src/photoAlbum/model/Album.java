@@ -21,14 +21,14 @@ public class Album implements Serializable{
 	
 	private static final long serialVersionUID = -5223084188453703541L;
 
-	private transient final StringProperty albumNameProp;
+	private transient StringProperty albumNameProp;
 	
 	private String albumName;
 	private int photoCount;
 	private Photo oldestPhoto;
 	private Photo newestPhoto;
 	private List<Photo> photos = new ArrayList<Photo>();
-	private ObservableList<Photo> photoData = FXCollections.observableArrayList();
+	private transient ObservableList<Photo> photoData = FXCollections.observableArrayList();
 	
 	/**
 	 * Creates instance of album and gives it a name
@@ -54,9 +54,16 @@ public class Album implements Serializable{
 	}
 	
 	/**
-	 * Refers to name of album
-	 * @return album name
+	 * Sets album name as a string property
 	 */
+	public void setStringProp(){
+		albumNameProp = new SimpleStringProperty(albumName);
+	}
+
+	/**
+ 	* Refers to name of album
+ 	* @return album name
+ 	*/
 	public String getName(){
 		return albumName;
 	}
@@ -196,11 +203,20 @@ public class Album implements Serializable{
 	 * @param photos
 	 */
 	public void updateAlbum(List<Photo> photos){
+		if(photoData == null){
+			photoData = FXCollections.observableArrayList();
+		}
 		this.photos = photos;
 		photoData.clear();
 		for (Photo i : this.photos) 
 			 photoData.add(i);
 		
+	}
+	
+	public void loadImages(){
+		for(Photo photo: photos){
+			photo.loadImage();
+		}
 	}
 
 }

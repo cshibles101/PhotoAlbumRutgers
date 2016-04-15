@@ -71,7 +71,9 @@ public class EditPhotoController {
 	public void handleOk(Event e){
 		limits.setVisible(false);
 		if(tagField.getText() != null)
-			tagSplit = tagField.getText().trim().toLowerCase().split(",| ");
+			tagSplit = tagField.getText().trim().toLowerCase().split(", ");
+		else
+			photo.setTagsString("");
 			
 		
 		

@@ -386,7 +386,7 @@ public class SearchController {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Close");
 		alert.setHeaderText("Are you sure you want to close your search?");
-		alert.setContentText("You will lose your current search, but any Albums created have been stored.");
+		alert.setContentText("You will lose your current search, but new albums are stored, but not saved.");
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK){
 			Stage stage = (Stage) menuBar.getScene().getWindow();
